@@ -42,7 +42,7 @@ public class WorldModel {
 		world.canvas.setTranslateX(-(world.player.getBoundary().getMinX()-100));
 	}
 	
-	private void gravity() {//realistico soggetto alla forza di gravità
+	private void gravity() {//realistico soggetto alla forza di gravitï¿½
 		
 		if(world.player.state != State.GROUND) {
 			world.player.addVelocity(0, 200 );	
@@ -55,6 +55,13 @@ public class WorldModel {
 		} else {
 			world.player.state = State.AIR;
 		}
+                
+                if(world.player.getBoundary().getMinX() < 0) {
+                    world.player.setPosition(0, world.player.getBoundary().getMinY());
+                } 
+                if(world.player.getBoundary().getMinX() > 1600) {
+                    world.player.setPosition(1600, world.player.getBoundary().getMinY());
+                }
 	}
 	
 	private int jumpSpeed = 500;
