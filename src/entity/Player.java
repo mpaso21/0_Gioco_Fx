@@ -8,7 +8,6 @@ public class Player extends Sprite{
 	public enum State {
 		AIR, 
 		GROUND
-		
 	}
 	
 	public State state = State.AIR;
@@ -19,17 +18,17 @@ public class Player extends Sprite{
 	public Player(){
 		super();
 		super.setImage(Assets.ufo);
-		yOrigin = 300;
-		maxJump = 300;
-		super.setPosition(100, yOrigin);
+		yOrigin = 200;
+		maxJump = 100;
+		super.setPosition(1700, yOrigin);
 	}
 	
-	public boolean maxHeightJump() {
-		System.out.println(yOrigin + " " + this.getBoundary().getMaxY());
-		if(yOrigin + this.getBoundary().getMinY() < maxJump) {
-			return true;
-		}
-		return false;
-	}
+//	public boolean maxHeightJump() {
+//		System.out.println("y: " + yOrigin + " x: " + this.getBoundary().getMaxY());
+////		if(yOrigin + this.getBoundary().getMinY() < maxJump) {
+////			return true;
+////		}
+//		return false;
+//	}
 	
 }

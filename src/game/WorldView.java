@@ -25,13 +25,15 @@ public class WorldView {
 	}
 	
 	private void render() {
-		gc.clearRect(0, 0, 1600, 800);
+		gc.clearRect(0, 0, 1600.0*3, 800);
 //		gc.fillRect(0, 0, 1600, 800);
-		gc.drawImage(Assets.background, 0, 0);
-		world.ground.render(gc);
+		
+                gc.drawImage(Assets.background, 0, 0);
+                gc.drawImage(Assets.backgroundCopy, 1600, 0);                    
+                gc.drawImage(Assets.backgroundCopy2, 3200, 0);                    
+                
+//                world.ground.render(gc);
 		world.player.render(gc);
-	
-	
 	}
 	
 	private void init(Group group){
