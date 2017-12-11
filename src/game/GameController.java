@@ -37,20 +37,36 @@ public class GameController extends Group{
 			
 		}.start();//start animation timeer
 	}
-	
-	public void initEvents(Scene scena) {
-		//quando clicco tasto tastiera
-		scena.setOnKeyPressed(e -> {
-			String code = e.getCode().toString();
-            if ( !model.input.contains(code) )
-                model.input.add( code );
-		});
-		
-		scena.setOnKeyReleased(e -> {
+
+    
+    public void initEvents(Scene scena) {
+        //quando clicco tasto tastiera
+        scena.setOnKeyPressed(e -> {
             String code = e.getCode().toString();
-            model.input.remove( code );
-		
-		});
-		
-	}
+            if (!model.input.contains(code)) {
+                
+                if(code.equals("X")) {
+                      if(!model.shoot.value) {
+                            model.input.add(code);
+                        }
+                } else {
+                    model.input.add(code);
+                }
+            }
+        });
+
+        scena.setOnKeyReleased(e -> {
+            String code = e.getCode().toString();
+            if (code.equals("X")) {
+                model.shoot.value = false;
+                model.input.remove(code);
+
+            } else {
+                model.input.remove(code);
+
+            }
+
+        });
+
+    }
 }

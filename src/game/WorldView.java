@@ -1,5 +1,6 @@
 package game;
 
+import entity.Bullet;
 import java.util.Random;
 
 import javafx.scene.Group;
@@ -34,6 +35,10 @@ public class WorldView {
                 
 //                world.ground.render(gc);
 		world.player.render(gc);
+                
+                for(Bullet b : world.bulletsList) {
+                    b.render(gc);
+                }
 	}
 	
 	private void init(Group group){

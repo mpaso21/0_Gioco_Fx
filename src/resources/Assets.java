@@ -9,9 +9,9 @@ public class Assets {
         public static Image backgroundCopy;
         public static Image backgroundCopy2;
 	public static Image ground;
-	public static Image ground2;
 //	public static Image background;
-	
+	public static Image bullet;
+        
 	private static String getResource(String filename) {
 		return Assets.class.getResource( filename).toExternalForm();
 	}
@@ -24,8 +24,9 @@ public class Assets {
                 backgroundCopy = new Image(getResource("background.png"));
                 backgroundCopy2 = new Image(getResource("background.png"));
 		ground = new Image(getResource("ground.png"));
-		ground2 = new Image(getResource("ground.png"));
-	}
+                
+                bullet = new Image(getResource("bullet.png"));
+        }
 	
 	
 }
