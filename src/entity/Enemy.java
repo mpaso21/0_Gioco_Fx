@@ -8,6 +8,6 @@ public class Enemy extends Sprite{
 	public Enemy(){
 		super();
 		super.setImage(Assets.nemico);
-		super.setPosition(2700, 200);
+		super.setPosition(4000, 200);
 	}
 }

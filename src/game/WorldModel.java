@@ -27,17 +27,30 @@ public class WorldModel {
 		gravity();
 		handleStatePlayer();
                 handlePlayerLimit() ;
-                
                 handleBullets(elapsedTime);
+                
          world.enemy.update(elapsedTime);
          handleEnemy(elapsedTime);
-        handleBulletsEnemy(elapsedTime);
+//        handleBulletsEnemy(elapsedTime);
+                handleEnemyLimit() ;
+                
+                
+                printPositions();
 	}
 	
+        private void printPositions() {
+//            System.out.println("----PLAYER----");
+//            System.out.println("X: "+ world.player.getBoundary().getMinX() + "Y: " + world.player.getBoundary().getMinY());
+            System.out.println("----ENEMY----");
+            System.out.println("X: "+ world.enemy.getBoundary().getMinX() + "Y: " + world.enemy.getBoundary().getMinY());
+            
+            
+        }
+        
 	private void handleEnemy(double elapsedTime){
 		 world.enemy.setVelocity(0, 0);
 		 world.enemy.addVelocity(-100.0, 0);
-		 handleShootEnemy();
+//		 handleShootEnemy();
 	}
 	
 	private void handleBulletsEnemy(double elapsedTime) {
@@ -47,7 +60,7 @@ public class WorldModel {
             b.addVelocity(-500, 0);
             b.update(elapsedTime);
             
-            if(b.getBoundary().getMaxX() - world.enemy.getBoundary().getMaxX() > 600) {
+            if(world.enemy.getBoundary().getMinX() - b.getBoundary().getMinX()  > 600) {
                 Platform.runLater(() -> {
                     world.bulletsListenemy.remove(b);
                 });
@@ -107,9 +120,9 @@ public class WorldModel {
         }
 	
         private void handlePlayerLimit() {
-                if(world.player.getBoundary().getMinX() < 1600) {
-                    world.player.setPosition(0, world.player.getBoundary().getMinY());
-                } 
+//                if(world.player.getBoundary().getMinX() < 1600) {
+//                    world.player.setPosition(0, world.player.getBoundary().getMinY());
+//                } 
 
 //                if(world.player.getBoundary().getMinX() > 1600) {
 //                    world.player.setPosition(1600, world.player.getBoundary().getMinY());
@@ -118,13 +131,17 @@ public class WorldModel {
                 if(world.player.getBoundary().getMinY() < 0) {
                     world.player.setPosition(world.player.getBoundary().getMinX(), 0);
                 } 
-                if(world.player.getBoundary().getMinY() > 200) {
-                    world.player.setPosition(world.player.getBoundary().getMinX(), 200);
+                if(world.player.getBoundary().getMinY() > 350) {
+                    world.player.setPosition(world.player.getBoundary().getMinX(), 350);
                 }
                 
                 if(world.player.getBoundary().getMinX() > 3200) {
+                   final double d = world.enemy.getBoundary().getMinX() - 
+                           world.player.getBoundary().getMinX();
                    world.player.setPosition(world.player.getBoundary().getMinX()-1600,
                                                     world.player.getBoundary().getMinY());
+                   world.enemy.setPosition(world.player.getBoundary().getMinX()+d, 
+                           world.enemy.getBoundary().getMinY());
                 }
 
 	    
@@ -169,7 +186,7 @@ public class WorldModel {
       }
 	
 	private void handleShootEnemy(){
-		int i=3;
+                int i=3;
 		while(i<=4){
 		 world.bulletsListenemy.add(new Bullet(world.enemy.getBoundary().getMinX(),
                  world.enemy.getBoundary().getMinY()+10));
@@ -180,5 +197,12 @@ public class WorldModel {
 		shootenemy.value = false;
 		
 	}
-	
+
+    private void handleEnemyLimit() {
+        
+        if (world.enemy.getBoundary().getMaxX() < 1600) {
+            world.enemy.setPosition(4000, world.enemy.getBoundary().getMinY());
+        }
+    }
+
 }

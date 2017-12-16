@@ -30,6 +30,7 @@ public class Assets {
                 
         bullet = new Image(getResource("bullet.png"));
         nemico = new Image(getResource("enemy.png"));
+        
         sfondo = new Image(getResource("sfondod.png"));
         sfondo1 = new Image(getResource("sfondod.png"));
         sfondo2 = new Image(getResource("sfondod.png"));

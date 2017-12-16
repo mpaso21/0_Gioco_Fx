@@ -44,7 +44,8 @@ public class WorldView {
                 for(Bullet b : world.bulletsList) {
                     b.render(gc);
                 }
-        world.enemy.render(gc);
+                
+                world.enemy.render(gc);
                 for(Bullet b : world.bulletsListenemy) {
                     b.render(gc);
                 }
