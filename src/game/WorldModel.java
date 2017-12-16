@@ -12,7 +12,7 @@ public class WorldModel {
 
 	public ArrayList<String> input = new ArrayList<String>();
         public BooleanValue shoot = new BooleanValue(false);
-
+        public BooleanValue shootenemy = new BooleanValue(false);
 	final World world;
 
         
@@ -29,8 +29,31 @@ public class WorldModel {
                 handlePlayerLimit() ;
                 
                 handleBullets(elapsedTime);
+         world.enemy.update(elapsedTime);
+         handleEnemy(elapsedTime);
+        handleBulletsEnemy(elapsedTime);
 	}
 	
+	private void handleEnemy(double elapsedTime){
+		 world.enemy.setVelocity(0, 0);
+		 world.enemy.addVelocity(-100.0, 0);
+		 handleShootEnemy();
+	}
+	
+	private void handleBulletsEnemy(double elapsedTime) {
+        for(Bullet b : world.bulletsListenemy) {
+            b.setVelocity(0, 0);
+
+            b.addVelocity(-500, 0);
+            b.update(elapsedTime);
+            
+            if(b.getBoundary().getMaxX() - world.enemy.getBoundary().getMaxX() > 600) {
+                Platform.runLater(() -> {
+                    world.bulletsListenemy.remove(b);
+                });
+            }
+        }
+    }
         private void handleBullets(double elapsedTime) {
             for(Bullet b : world.bulletsList) {
                 b.setVelocity(0, 0);
@@ -144,4 +167,18 @@ public class WorldModel {
 //                }
 		
       }
+	
+	private void handleShootEnemy(){
+		int i=3;
+		while(i<=4){
+		 world.bulletsListenemy.add(new Bullet(world.enemy.getBoundary().getMinX(),
+                 world.enemy.getBoundary().getMinY()+10));
+ 
+		 	shootenemy.value = true;
+		 	i++;
+		}
+		shootenemy.value = false;
+		
+	}
+	
 }

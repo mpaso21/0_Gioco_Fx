@@ -11,7 +11,10 @@ public class Assets {
 	public static Image ground;
 //	public static Image background;
 	public static Image bullet;
-        
+	public static Image nemico;
+    public static Image sfondo; 
+    public static Image sfondo1;
+    public static Image sfondo2;
 	private static String getResource(String filename) {
 		return Assets.class.getResource( filename).toExternalForm();
 	}
@@ -25,7 +28,11 @@ public class Assets {
                 backgroundCopy2 = new Image(getResource("background.png"));
 		ground = new Image(getResource("ground.png"));
                 
-                bullet = new Image(getResource("bullet.png"));
+        bullet = new Image(getResource("bullet.png"));
+        nemico = new Image(getResource("enemy.png"));
+        sfondo = new Image(getResource("sfondod.png"));
+        sfondo1 = new Image(getResource("sfondod.png"));
+        sfondo2 = new Image(getResource("sfondod.png"));
         }
 	
 	

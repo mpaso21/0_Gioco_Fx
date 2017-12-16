@@ -29,14 +29,23 @@ public class WorldView {
 		gc.clearRect(0, 0, 1600.0*3, 800);
 //		gc.fillRect(0, 0, 1600, 800);
 		
-                gc.drawImage(Assets.background, 0, 0);
-                gc.drawImage(Assets.backgroundCopy, 1600, 0);                    
-                gc.drawImage(Assets.backgroundCopy2, 3200, 0);                    
+
+        gc.drawImage(Assets.sfondo, 0, 0);
+        gc.drawImage(Assets.sfondo1, 1600, 0);                    
+        gc.drawImage(Assets.sfondo2, 3200, 0);                    
+        
+            //    gc.drawImage(Assets.background, 0, 0);
+            //    gc.drawImage(Assets.backgroundCopy, 1600, 0);                    
+            //    gc.drawImage(Assets.backgroundCopy2, 3200, 0);                    
                 
 //                world.ground.render(gc);
 		world.player.render(gc);
-                
+        
                 for(Bullet b : world.bulletsList) {
+                    b.render(gc);
+                }
+        world.enemy.render(gc);
+                for(Bullet b : world.bulletsListenemy) {
                     b.render(gc);
                 }
 	}
