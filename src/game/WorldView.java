@@ -26,13 +26,12 @@ public class WorldView {
 	}
 	
 	private void render() {
-		gc.clearRect(0, 0, 1600.0*3, 800);
+		gc.clearRect(0, 0, 3200, 800);
 //		gc.fillRect(0, 0, 1600, 800);
 		
 
-        gc.drawImage(Assets.sfondo, 0, 0);
-        gc.drawImage(Assets.sfondo1, 1600, 0);                    
-        gc.drawImage(Assets.sfondo2, 3200, 0);                    
+        gc.drawImage(Assets.background, 0, 0);
+                       
         
             //    gc.drawImage(Assets.background, 0, 0);
             //    gc.drawImage(Assets.backgroundCopy, 1600, 0);                    
@@ -45,10 +44,8 @@ public class WorldView {
                     b.render(gc);
                 }
                 
-                world.enemy.render(gc);
-                for(Bullet b : world.bulletsListenemy) {
-                    b.render(gc);
-                }
+              world.renderEnemies(gc);
+                
 	}
 	
 	private void init(Group group){

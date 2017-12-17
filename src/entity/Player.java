@@ -1,6 +1,7 @@
 package entity;
 
 import resources.Assets;
+import utility.Constants;
 import utility.Sprite;
 
 public class Player extends Sprite{
@@ -20,7 +21,7 @@ public class Player extends Sprite{
 		super.setImage(Assets.ufo);
 		yOrigin = 200;
 		maxJump = 100;
-		super.setPosition(1700, yOrigin);
+		super.setPosition(100+Constants.SHIFT_AMOUNT, yOrigin);
 	}
 	
 //	public boolean maxHeightJump() {

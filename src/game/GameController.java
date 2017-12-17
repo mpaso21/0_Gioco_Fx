@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import utility.LongValue;
+import utility.WrapperValue;
 
 
 public class GameController extends Group{
@@ -24,7 +24,7 @@ public class GameController extends Group{
 	private void start(){//loop gioco
 		new AnimationTimer(){//interfaccia funzionale
 			
-			LongValue lastNanoTime = new LongValue( System.nanoTime() );
+			WrapperValue<Long> lastNanoTime = new WrapperValue<Long>( System.nanoTime() );
 			@Override
 			public void handle(long currentNanoTime) {
 				 
