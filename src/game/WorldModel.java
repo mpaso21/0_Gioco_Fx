@@ -22,8 +22,8 @@ public class WorldModel {
 		this.world = world;
 	}
 
-	public void update(double elapsedTime) {
-		world.player.update(elapsedTime);
+	public void update(double elapsedTime, double t) {
+		world.player.update(elapsedTime, t);
 		handleInput();
 		handleCanvas();
 		gravity();
@@ -124,14 +124,15 @@ public class WorldModel {
 		}
 
 		if (world.player.getBoundary().getMinX() > 2400) {
-			
-			world.resetEnemies(world.player.getBoundary().getMinX());
+			double playerX = world.player.getBoundary().getMinX();
+                        
+			world.player.setPosition(world.player.getBoundary().getMinX() - Constants.XPLAYER_ORIGIN, world.player.getBoundary().getMinY());
+			world.resetEnemies(playerX);
 			
 //			final double d = world.enemy.getBoundary().getMinX() - world.player.getBoundary().getMinX();
 //			world.player.setPosition(world.player.getBoundary().getMinX() - Constants.XPLAYER_ORIGIN, world.player.getBoundary().getMinY());
 //			world.enemy.setPosition(world.player.getBoundary().getMinX() + d, world.enemy.getBoundary().getMinY());
 			
-			world.player.setPosition(world.player.getBoundary().getMinX() - Constants.XPLAYER_ORIGIN, world.player.getBoundary().getMinY());
 		}
 
 	}
@@ -155,7 +156,7 @@ public class WorldModel {
 			// System.out.println("spara_GRINGO");
 
 			world.bulletsList
-					.add(new Bullet(world.player.getBoundary().getMaxX(), world.player.getBoundary().getMinY() + 10));
+                            .add(new Bullet(world.player.getBoundary().getMaxX(), world.player.getBoundary().getMinY() + world.player.getBoundary().getWidth()/3));
 
 			shoot.value = true;
 			input.remove("X");

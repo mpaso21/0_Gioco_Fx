@@ -18,10 +18,13 @@ public class GameController extends Group{
 		world = new World();//contiene le cose
 		model = new WorldModel(world);//muovo le cose
 		view = new WorldView(this, world);//visualizzo le cose this game controller/gruppo per buttarci dentro la canvas
-		start();
+                start();
 	}
 	
 	private void start(){//loop gioco
+
+            final long startNanoTime = System.nanoTime();
+
 		new AnimationTimer(){//interfaccia funzionale
 			
 			WrapperValue<Long> lastNanoTime = new WrapperValue<Long>( System.nanoTime() );
@@ -29,9 +32,11 @@ public class GameController extends Group{
 			public void handle(long currentNanoTime) {
 				 
 				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
-	            lastNanoTime.value = currentNanoTime;
+                                lastNanoTime.value = currentNanoTime;
 	            
-				model.update(elapsedTime);
+                                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+				
+                                model.update(elapsedTime, t);
 				view.update(elapsedTime);
 			}
 			

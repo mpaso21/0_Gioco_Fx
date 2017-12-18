@@ -21,19 +21,23 @@ public class Enemies {
     }
     
     public void update(double elapsedTime){
+		enemiesLimit();
+		enemiesGeneration(elapsedTime);
 		for(final Enemy e: enemies){
 			e.update(elapsedTime);
 		}
-		enemiesGeneration(elapsedTime);
-		enemiesLimit();
-		printEnemiesPositions();
+//		printEnemiesPositions();
 	}
     
 	public void reset(double playerPosition){
 		double d;
 		for(final Enemy e: enemies){
 			d = e.getBoundary().getMinX() - playerPosition;
-			e.setPosition(playerPosition-Constants.XPLAYER_ORIGIN+d, e.getBoundary().getMinY());
+                        if(d <= 0) {
+                            d -= 10000;
+                        }
+                        e.setPosition(playerPosition-Constants.XPLAYER_ORIGIN+d, e.getBoundary().getMinY());
+                        
 		}
 	
 	}

@@ -1,17 +1,13 @@
 package game;
 
 import entity.Bullet;
-import entity.Enemy;
-import entity.Ground;
 import entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import macroEntity.Enemies;
-import utility.Constants;
 
 public class World {
 	
@@ -20,8 +16,6 @@ public class World {
 	
 	private Enemies enemies;//oggetto privato non posso fare world.enemies e accedere ai metodi della classe
 //	public Enemy enemy;
-	// public Ground ground;
-
 	
 	public final List<Bullet> bulletsList = new ArrayList<>();
 	public final List<Bullet> bulletsListenemy = new ArrayList<>();
@@ -33,7 +27,6 @@ public class World {
 		canvas = new Canvas(3200.0, 800.0);
 		enemies = new Enemies();
 		//enemy = new Enemy();
-		// ground = new Ground();
 	}
 	
 	

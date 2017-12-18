@@ -7,8 +7,8 @@ import javafx.scene.paint.Color;
 
 public class Sprite {
 	private Image image;
-    private double positionX;
-    private double positionY;    
+    protected double positionX;
+    protected double positionY;    
     private double velocityX;
     private double velocityY;
     private double width;
