@@ -1,6 +1,7 @@
 package game;
 
 import javafx.animation.AnimationTimer;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,7 +19,7 @@ public class GameController extends Group{
 		world = new World();//contiene le cose
 		model = new WorldModel(world);//muovo le cose
 		view = new WorldView(this, world);//visualizzo le cose this game controller/gruppo per buttarci dentro la canvas
-                start();
+        start();
 	}
 	
 	private void start(){//loop gioco
@@ -37,10 +38,11 @@ public class GameController extends Group{
                                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 				
                                 model.update(elapsedTime, t);
-				view.update(elapsedTime);
+                                view.update(elapsedTime);
 			}
 			
 		}.start();//start animation timeer
+		
 	}
 
     

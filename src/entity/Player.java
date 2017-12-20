@@ -2,8 +2,6 @@ package entity;
 
 import java.util.HashMap;
 import java.util.Map;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import resources.Assets;
 import utility.AnimatedImage;
 import utility.Constants;
@@ -12,11 +10,11 @@ import utility.Sprite;
 public class Player extends Sprite {
 
     public enum State {
-        AIR,
-        GROUND
+        PLAY,
+        GAME_OVER
     }
 
-    public State state = State.AIR;
+    public State state = State.PLAY; //stato iniziale
 
     public int yOrigin;
     public int maxJump;
@@ -43,8 +41,15 @@ public class Player extends Sprite {
 
     public void update(double time, double t) {
         super.update(time);
+        super.setVelocity(0, 0);
+        super.addVelocity(Constants.XPLAYER_SPEED, 0);
+        super.addVelocity(0, Constants.GRAVITY_SPEED);
         super.setImage(playerAnimation.getFrame(t));
-        printFrameDistribution(t);
+//        printFrameDistribution(t);
+    }
+    
+    public void jump(){
+    	super.addVelocity(0, -Constants.JUMP_SPEED);
     }
     
     Map<String,Integer> myMap = new HashMap<>();
@@ -71,4 +76,10 @@ public class Player extends Sprite {
 ////		}
 //		return false;
 //	}
+
+	public void intersectsEnemies(boolean intersectsEnemies) {
+		if(intersectsEnemies) {
+//			System.out.println("colpito dal nemico");
+		}
+	}
 }

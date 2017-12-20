@@ -3,17 +3,19 @@ package macroEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Bullet;
 import entity.Enemy;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import utility.Constants;
+import utility.Sprite;
 
 public class Enemies {
 
 	//ogni quanto vengono spannati i nemici
 	private double spawnTime;
 	//enemies
-    public final List<Enemy> enemies;
+    private final List<Enemy> enemies;
     
     public Enemies(){
     	spawnTime = 0;
@@ -31,13 +33,14 @@ public class Enemies {
     
 	public void reset(double playerPosition){
 		double d;
+		double pos;
+		System.out.println("\n");
 		for(final Enemy e: enemies){
 			d = e.getBoundary().getMinX() - playerPosition;
-                        if(d <= 0) {
-                            d -= 10000;
-                        }
-                        e.setPosition(playerPosition-Constants.XPLAYER_ORIGIN+d, e.getBoundary().getMinY());
+                        pos = playerPosition-Constants.XPLAYER_ORIGIN+d;
+                        e.setPosition(pos, e.getBoundary().getMinY());
                         
+                        System.out.println(pos);
 		}
 	
 	}
@@ -47,9 +50,38 @@ public class Enemies {
 			e.render(gc);
 		}
 	}
+	
+	public boolean intersects(Sprite p){
+		for(Enemy e: enemies){
+			if(e.intersects(p)) {
+				return true; //return se torna vero esce
+			}
+		}
+		return false;
+	}
+	
+	public boolean intersectBullet(Bullet b, List<Enemy> l) {
+		boolean hit = false;
+		
+		final ArrayList<Enemy> remove = new ArrayList<>();
+		
+		for(Enemy e : enemies) {
+			if(b.intersects(e)) {
+				e.intersectsBullet();
+				l.add(e);
+				remove.add(e);
+				hit = true;
+			}
+		}
+		
+		enemies.removeAll(remove);
+		
+		return hit;
+	}
+	
 	private void enemiesGeneration(double elapsedTime){
 		if(spawnTime+ elapsedTime > Constants.ENEMIES_SPAWNTIME){
-			enemies.add(new Enemy(Constants.rand.nextDouble()*300));
+			enemies.add(new Enemy(Constants.RAND.nextDouble()*300));
 //			System.out.println("SPAWN "+ spawnTime);
 			spawnTime = 0;
 		}
@@ -70,12 +102,13 @@ public class Enemies {
 	}
 	private void enemiesLimit() {
 
+		final ArrayList<Enemy> remove = new ArrayList<>();
+		
 		for(final Enemy e: enemies){
 			if(e.getBoundary().getMaxX()< Constants.SHIFT_AMOUNT){
-				Platform.runLater(() -> { enemies.remove(e); });
+				remove.add(e);
 			}
 		}
-
-
+		enemies.removeAll(remove);
 	}
 }

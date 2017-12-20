@@ -25,16 +25,11 @@ public class WorldView {
 
     private void render() {
         gc.clearRect(0, 0, 3200, 800);
-
+        
         gc.drawImage(Assets.background, 0, 0);
-
         world.renderEnemies(gc);
-
         world.player.render(gc);
-
-        for (Bullet b : world.bulletsList) {
-            b.render(gc);
-        }
+        world.renderBullets(gc);
 
     }
 
