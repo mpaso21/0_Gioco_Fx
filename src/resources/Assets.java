@@ -1,6 +1,7 @@
 package resources;
 
 import javafx.scene.image.Image;
+import utility.Constants;
 
 public class Assets {
 
@@ -37,11 +38,12 @@ public class Assets {
         enemies[2] = new Image(getResource("enemy_g.png"));
         enemies[3] = new Image(getResource("enemy_y.png"));
         
-        explosion_frames = new Image[3];
-        explosion_frames[0] = new Image(getResource("explprova1.png"));
-        explosion_frames[1] = new Image(getResource("explprova2.png"));
-        explosion_frames[2] = new Image(getResource("explprova3.png"));
-        
+        explosion_frames = new Image[Constants.EXPLOSION_FRAME];
+        explosion_frames[0] = new Image(getResource("explosion1.png"));
+        explosion_frames[1] = new Image(getResource("explosion2.png"));
+        explosion_frames[2] = new Image(getResource("explosion3.png"));
+        explosion_frames[3] = new Image(getResource("explosion4.png"));
+        explosion_frames[4] = new Image(getResource("explosion5.png"));
     }
 
 }
