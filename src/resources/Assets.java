@@ -12,6 +12,8 @@ public class Assets {
     public static Image enemy;
     
     public static Image[] enemies;
+    
+    public static Image[] explosion_frames;
 
     private static String getResource(String filename) {
         return Assets.class.getResource(filename).toExternalForm();
@@ -34,6 +36,11 @@ public class Assets {
         enemies[1] = new Image(getResource("enemy_p.png"));
         enemies[2] = new Image(getResource("enemy_g.png"));
         enemies[3] = new Image(getResource("enemy_y.png"));
+        
+        explosion_frames = new Image[3];
+        explosion_frames[0] = new Image(getResource("explprova1.png"));
+        explosion_frames[1] = new Image(getResource("explprova2.png"));
+        explosion_frames[2] = new Image(getResource("explprova3.png"));
         
     }
 

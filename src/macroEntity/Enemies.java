@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import utility.Constants;
 import utility.Sprite;
+import utility.Vector2d;
 
 public class Enemies {
 
@@ -31,19 +32,19 @@ public class Enemies {
 //		printEnemiesPositions();
 	}
     
-	public void reset(double playerPosition){
-		double d;
-		double pos;
-		System.out.println("\n");
-		for(final Enemy e: enemies){
-			d = e.getBoundary().getMinX() - playerPosition;
-                        pos = playerPosition-Constants.XPLAYER_ORIGIN+d;
-                        e.setPosition(pos, e.getBoundary().getMinY());
-                        
-                        System.out.println(pos);
-		}
-	
-	}
+//	public void reset(double playerPosition){
+//		double d;
+//		double pos;
+//		System.out.println("\n");
+//		for(final Enemy e: enemies){
+//			d = e.getBoundary().getMinX() - playerPosition;
+//                        pos = playerPosition-Constants.XPLAYER_ORIGIN+d;
+//                        e.setPosition(pos, e.getBoundary().getMinY());
+//                        
+//                        System.out.println(pos);
+//		}
+//	
+//	}
 	
 	public void render(GraphicsContext gc){
 		for(Enemy e: enemies){
@@ -60,7 +61,7 @@ public class Enemies {
 		return false;
 	}
 	
-	public boolean intersectBullet(Bullet b, List<Enemy> l) {
+	public boolean intersectBullet(Bullet b, List<Vector2d> l) {
 		boolean hit = false;
 		
 		final ArrayList<Enemy> remove = new ArrayList<>();
@@ -68,7 +69,9 @@ public class Enemies {
 		for(Enemy e : enemies) {
 			if(b.intersects(e)) {
 				e.intersectsBullet();
-				l.add(e);
+				
+				l.add(new Vector2d(e.getBoundary().getMinX()+ e.getBoundary().getWidth()/2,
+						           e.getBoundary().getMinY()+ e.getBoundary().getHeight()/2));
 				remove.add(e);
 				hit = true;
 			}

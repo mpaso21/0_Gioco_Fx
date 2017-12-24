@@ -8,6 +8,7 @@ import entity.Enemy;
 import entity.Player;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import utility.Vector2d;
 
 
 public class Bullets {
@@ -47,15 +48,15 @@ public class Bullets {
     	}   	
     }
     
-    public List<Enemy> intersects(Enemies enemies) {
-    	ArrayList<Enemy> removed = new ArrayList<>();
-    	final ArrayList<Bullet> remove = new ArrayList<>();
+    public List<Vector2d> intersects(Enemies enemies) {
+    	ArrayList<Vector2d> removed = new ArrayList<>();
+    	final ArrayList<Bullet> r = new ArrayList<>();
     	for(Bullet b : bullets) {
     		if(enemies.intersectBullet(b, removed)) {
-    			remove.add(b);
+    			r.add(b);
     		}
     	}
-    	bullets.removeAll(remove);
+    	bullets.removeAll(r);
     	return removed;
     }
 }

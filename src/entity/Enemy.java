@@ -14,7 +14,7 @@ public class Enemy extends Sprite {
 		super();
 		super.setImage(Assets.enemies[Constants.RAND.nextInt(4)]);
 		final int val = Constants.RAND.nextInt(2);
-		super.setPosition((val==0)? 3200 : 4000, y);
+		super.setPosition((val==0)? 1800 : 2500, y);
 		myIndex = index++;
 	}
 	
@@ -22,7 +22,7 @@ public class Enemy extends Sprite {
     {
     	super.update(time);
 		setVelocity(0, 0);
-		addVelocity(-100.0, 0);
+		addVelocity(-Constants.ENEMIES_SPEED, 0);
     }
     
 	public void intersectsBullet() {

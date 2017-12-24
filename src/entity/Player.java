@@ -38,13 +38,23 @@ public class Player extends Sprite {
         playerAnimation.frames = Assets.player_frames;
         playerAnimation.duration = 0.1;
     }
+    
+    private void handlePlayerLimit() {
+		if (getBoundary().getMinY() < 0) {
+			setPosition(getBoundary().getMinX(), 0);
+		}
+		if (getBoundary().getMinY() > Constants.PLAYER_MAXY) {
+			setPosition(getBoundary().getMinX(), Constants.PLAYER_MAXY);
+		}
+    }
 
     public void update(double time, double t) {
         super.update(time);
         super.setVelocity(0, 0);
-        super.addVelocity(Constants.XPLAYER_SPEED, 0);
+       // super.addVelocity(Constants.XPLAYER_SPEED, 0);
         super.addVelocity(0, Constants.GRAVITY_SPEED);
         super.setImage(playerAnimation.getFrame(t));
+        handlePlayerLimit();
 //        printFrameDistribution(t);
     }
     

@@ -6,8 +6,11 @@ import entity.Enemy;
 import entity.Player;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import macroEntity.Background;
 import macroEntity.Bullets;
 import macroEntity.Enemies;
+import macroEntity.Explosions;
+import utility.Vector2d;
 
 public class World {
 	
@@ -16,12 +19,16 @@ public class World {
 	
 	private Enemies enemies;//oggetto privato non posso fare world.enemies e accedere ai metodi della classe
 	private Bullets bullets;
+	private Background backgrounds;
+	private Explosions explosions;
     
 	public World() {
 		player = new Player();
-		canvas = new Canvas(3200.0, 800.0);
+		canvas = new Canvas(1600.0, 800.0);
 		enemies = new Enemies();
 		bullets = new Bullets(player);
+		backgrounds = new Background();
+		explosions = new Explosions();
 	}
 	
 	
@@ -29,9 +36,9 @@ public class World {
 	public void updateEnemies(double elapsedTime) {
 		enemies.update(elapsedTime);
 	}
-	public void resetEnemies(double elapsedTime) {
-		enemies.reset(elapsedTime);
-	}
+//	public void resetEnemies(double elapsedTime) {
+//		enemies.reset(elapsedTime);
+//	}
 	public void renderEnemies(GraphicsContext gc) {
 		enemies.render(gc);
 	}
@@ -52,10 +59,32 @@ public class World {
 		bullets.render(gc);
 	}
 	public void intersectsBullets() {
-		List<Enemy> list = bullets.intersects(enemies);
+		List<Vector2d> list = bullets.intersects(enemies);
 		if(!list.isEmpty()) {
 //			System.out.println(list);	
+			explosions.create(list);
 		}
 	}
 	/////////////////////BULLETS/////////////////////////////////////////////////
+	
+	
+	/////////////////////////////EXPLOSIONS///////////////////////////////////////
+	public void updateExplosions(double elapsedTime, double t){
+		explosions.update(elapsedTime, t);
+	}
+	
+	public void renderExplosion(GraphicsContext gc){
+		explosions.render(gc);
+	}
+	//////////////////////////////EXPLOSIONS///////////////////////////////////
+	
+	
+	///////////////////////BACKGROUND//////////////////////////////////////////
+	public void updateBackground(double elapsedTime){
+		backgrounds.update(elapsedTime);
+	}
+	public void renderBackground(GraphicsContext gc){
+		backgrounds.render(gc);
+	}
+	/////////////////////////BACKGROUNDS//////////////////////////////////////
 }
