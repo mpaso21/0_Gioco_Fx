@@ -1,6 +1,7 @@
 package resources;
 
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import utility.Constants;
 
 public class Assets {
@@ -44,6 +45,12 @@ public class Assets {
         explosion_frames[2] = new Image(getResource("explosion3.png"));
         explosion_frames[3] = new Image(getResource("explosion4.png"));
         explosion_frames[4] = new Image(getResource("explosion5.png"));
+        
+        loadFonts();
     }
 
+    // font loading for usage in css files after the loading.
+    private static void loadFonts() {
+            Font.loadFont(getResource("PermanentMarker-Regular.ttf"), 10);
+    }
 }

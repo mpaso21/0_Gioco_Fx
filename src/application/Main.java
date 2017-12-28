@@ -24,10 +24,10 @@ public class Main extends Application {
 	
 	private void init(Stage primaryStage) throws IOException{ //mi si apre una finestra
 		primaryStage.setTitle("MY FUCKING GAME");
-		primaryStage.setResizable(false);//la finestra non può essere ridimensionata
+		primaryStage.setResizable(false);//la finestra non puï¿½ essere ridimensionata
 	
 		//GameController controller = new GameController();
-		Parent root = FXMLLoader.load(getClass().getResource("Fxml_menu.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../menu/Fxml_menu.fxml"));
 		Scene scena = new Scene(root, 800, 600);
 		//Scene scena = new Scene(controller, 800, 600);
 		//controller.initEvents(scena);

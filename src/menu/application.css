@@ -4,8 +4,8 @@
 }
 
 #game-text {
-   -fx-font-size: 32px;
-   -fx-font-family: "Calibri";
+   -fx-font-size: 60px;
+   -fx-font-family: 'Permanent Marker';
    -fx-fill: #000000;
    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
