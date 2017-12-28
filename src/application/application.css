@@ -1,1 +1,20 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.root {
+-fx-background-image: url("GAME.jpg");
+}
+
+#game-text {
+   -fx-font-size: 32px;
+   -fx-font-family: "Calibri";
+   -fx-fill: #000000;
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+
+.button {
+    -fx-text-fill: black;
+    -fx-font-family: "Calibri";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
