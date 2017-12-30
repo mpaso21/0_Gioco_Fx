@@ -1,19 +1,22 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .root {
--fx-background-image: url("GAME.jpg");
+-fx-background-image: url("menuground.jpg");
 }
 
 #game-text {
-   -fx-font-size: 60px;
-   -fx-font-family: 'Permanent Marker';
+   -fx-font-size: 50px;
+   -fx-font-family: 'Bungee';
    -fx-fill: #000000;
+   -fx-stroke: white;
    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
 
 
 .button {
+	-fx-font-size: 30px;
     -fx-text-fill: black;
-    -fx-font-family: "Calibri";
+    -fx-border-color: black;
+    -fx-font-family: 'Bungee';
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );

@@ -52,5 +52,6 @@ public class Assets {
     // font loading for usage in css files after the loading.
     private static void loadFonts() {
             Font.loadFont(getResource("PermanentMarker-Regular.ttf"), 10);
+            Font.loadFont(getResource("Bungee-Regular.ttf"), 10);
     }
 }
