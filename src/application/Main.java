@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import resources.Assets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import menu.FXMLMenuController;
 
 
 public class Main extends Application {
@@ -26,13 +27,9 @@ public class Main extends Application {
 		primaryStage.setTitle("MY FUCKING GAME");
 		primaryStage.setResizable(false);//la finestra non pu� essere ridimensionata
 	
-		//GameController controller = new GameController();
-		Parent root = FXMLLoader.load(getClass().getResource("../menu/Fxml_menu.fxml"));
-		Scene scena = new Scene(root, 800, 600);
-		//Scene scena = new Scene(controller, 800, 600);
-		//controller.initEvents(scena);
-		primaryStage.setScene(scena);
-		
-		primaryStage.show();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../menu/Fxml_menu.fxml"));
+		Parent root = loader.load();
+                FXMLMenuController controller = loader.getController();
+                controller.init(primaryStage, root);
 	}
 }

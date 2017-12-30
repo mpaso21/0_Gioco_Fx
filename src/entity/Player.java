@@ -89,7 +89,8 @@ public class Player extends Sprite {
 
 	public void intersectsEnemies(boolean intersectsEnemies) {
 		if(intersectsEnemies) {
-//			System.out.println("colpito dal nemico");
-		}
+                    state = State.GAME_OVER;
+                    // esplosione
+                }
 	}
 }

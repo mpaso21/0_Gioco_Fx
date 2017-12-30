@@ -1,10 +1,13 @@
 package game;
 
 import entity.Bullet;
+import entity.Player;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import resources.Assets;
 
 public class WorldView {
@@ -23,16 +26,32 @@ public class WorldView {
         render();
     }
 
+    
+    float font = 25f;
+
     private void render() {
         gc.clearRect(0, 0, 1600, 800);
         world.renderBackground(gc);
         world.renderExplosion(gc);
         //gc.drawImage(Assets.background, 0, 0);
         world.renderEnemies(gc);
-        world.player.render(gc);
-        
-        world.renderBullets(gc);
-      
+
+        if (world.player.state != Player.State.GAME_OVER) {
+            world.player.render(gc);
+            world.renderBullets(gc);
+        } else {
+            gc.setFill(Color.BLACK);
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(3);
+            if(font < 110) {
+                font += 0.3;
+            }
+            final Font theFont = Font.font("Bungee", FontWeight.BOLD, font);
+            gc.setFont(theFont);
+            gc.fillText("GAME OVER", 80, 300);
+            gc.strokeText("GAME OVER", 80, 300);
+        }
+
 
     }
 

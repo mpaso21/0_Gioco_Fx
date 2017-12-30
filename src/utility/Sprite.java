@@ -12,7 +12,7 @@ public class Sprite {
     private double width;
     private double height;
     
-    private boolean debug = true;
+    private boolean debug = false;
     
     public Sprite()
     {
