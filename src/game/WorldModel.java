@@ -24,8 +24,10 @@ public class WorldModel {
 	public void update(double elapsedTime, double t) {
             
             if(world.player.state != Player.State.GAME_OVER) {
-                world.player.intersectsEnemies(world.intersectsEnemies());
-                    world.intersectsBullets();
+            	if(Constants.MORTAL){
+            		world.player.intersectsEnemies(world.intersectsEnemies());
+            	}
+            	world.intersectsBullets();
 
                     world.player.update(elapsedTime, t);
                     handleInput();		
@@ -57,15 +59,10 @@ public class WorldModel {
 			shoot.value = true;
 			input.remove("X");
 		}
+		
+		if (input.contains("I")){
+			Constants.MORTAL = !Constants.MORTAL;
+			input.remove("I");
+		}
 	}
-
-//	private void handleCanvas() {// per scorrimento canvas con player posizione
-//									// alto sx
-//		world.canvas.setTranslateX(-(world.player.getBoundary().getMinX() - 10));
-//	}
-
-
-
-
-	
 }

@@ -17,4 +17,5 @@ public class Constants {
 	public static final double PLAYER_MAXY = 300.0;
 	public static final double EXPLOSION_TIME = 0.5;
         public static final int EXPLOSION_FRAME = 5;
+		public static boolean MORTAL = false;
 }
