@@ -23,7 +23,7 @@ public class GameController extends Group {
 
     private void start() {//loop gioco
 
-        final long startNanoTime = System.nanoTime();
+        final long startNanoTime = System.nanoTime(); //startNanoTime
 
         at = new AnimationTimer() {//interfaccia funzionale
 

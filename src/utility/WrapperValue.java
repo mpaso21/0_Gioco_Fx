@@ -1,6 +1,8 @@
 package utility;
 
-public class WrapperValue<T> {
+import java.io.Serializable;
+
+public class WrapperValue<T> implements Serializable {
 
 	public T value;
 	

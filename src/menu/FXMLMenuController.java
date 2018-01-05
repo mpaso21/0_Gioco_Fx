@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import multiplayer.client.MultiplayerController;
 
 
 public class FXMLMenuController {
@@ -17,7 +18,7 @@ public class FXMLMenuController {
 
     
 	
-    @FXML protected void handleSinglePlayer(ActionEvent event) {
+    @FXML protected void handleSinglePlayer(ActionEvent event) {//background single
         GameController controller = new GameController(stage);
         Scene scena = new Scene(controller, 800, 600);
         controller.initEvents(scena);
@@ -25,15 +26,17 @@ public class FXMLMenuController {
     }
     
     @FXML protected void handleMultiPlayer(ActionEvent event) {
-
+    	MultiplayerController controller = new MultiplayerController(stage);
+    	Scene scena = new Scene(controller, 800, 600);
+        stage.setScene(scena);
     }
     
-    public void init(Stage primaryStage, Parent root) {
+    public void init(Stage primaryStage, Parent root) {//menu
         this.stage = primaryStage;
         
         Scene scena = new Scene(root, 800, 600);
         stage.setScene(scena);
-        stage.show();
+        stage.show();//Show fatto una volta va beene x sempre 
 		
     }
 }
