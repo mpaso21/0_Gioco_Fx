@@ -32,7 +32,7 @@ public class MultiplayerView {
 		
 		if(obj instanceof WrapperValue<?>) {
 			lastMessage = ((WrapperValue<String>) obj).value;
-			System.out.println(lastMessage);
+//			System.out.println(lastMessage);
 		} else if(obj instanceof MultiplayerWorld) {
 			setWorld((MultiplayerWorld) obj); 
 		}
@@ -46,7 +46,7 @@ public class MultiplayerView {
 		}
 		
 		if(world!= null){
-			//	world.render(gc);
+			world.renderAll(gc);
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class MultiplayerView {
 		    gc.setLineWidth(2);
 		    Font theFont = Font.font( "Bungee", FontWeight.BOLD, 90 );
 		    gc.setFont( theFont );
-		    gc.fillText( "LOADING", 200, 300 );//colorato
-		    gc.strokeText( "LOADING",200, 300 );//contonro 
+		    gc.fillText( "Waiting\nPlayer 2", 180, 260 );//colorato
+		    gc.strokeText( "Waiting\nPlayer 2",180, 260 );//contonro 
    	}
 }

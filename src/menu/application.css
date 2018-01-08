@@ -31,3 +31,11 @@
     -fx-background-color: linear-gradient(#6161b1, #2A5068);
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
+
+#noConnection {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+   -fx-font-family: 'Bungee';
+   -fx-fill: #990011;
+   -fx-stroke: black;
+}

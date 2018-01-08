@@ -14,7 +14,7 @@ public class FXMLMenuController {
     
     private Stage stage;
     
-    @FXML private Text actiontarget;
+    @FXML private Text noConnection;
 
     
 	
@@ -38,5 +38,14 @@ public class FXMLMenuController {
         stage.setScene(scena);
         stage.show();//Show fatto una volta va beene x sempre 
 		
+    }
+    
+    public void init(Stage primaryStage, Parent root, boolean noConnection) {//menu
+        this.stage = primaryStage;
+        this.noConnection.setVisible(noConnection);
+        
+        Scene scena = new Scene(root, 800, 600);
+        stage.setScene(scena);
+        stage.show();//Show fatto una volta va beene x sempre 
     }
 }
