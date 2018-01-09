@@ -6,12 +6,13 @@ import java.util.List;
 import entity.Bullet;
 import entity.Enemy;
 import entity.Player;
+import java.io.Serializable;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import utility.Vector2d;
 
 
-public class Bullets {
+public class Bullets implements Serializable {
     private final List<Bullet> bullets;
     private final Player p;
     

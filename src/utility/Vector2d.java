@@ -1,6 +1,8 @@
 package utility;
 
-public class Vector2d {
+import java.io.Serializable;
+
+public class Vector2d implements Serializable {
 	private double x;
 	private double y;
 	

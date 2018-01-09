@@ -37,6 +37,8 @@ public class MultiplayerView {
 			setWorld((MultiplayerWorld) obj); 
 		}
 		
+//                System.out.println(obj + " " + obj.getClass());
+                
 		if(lastMessage != null && world == null) {
 			if(lastMessage.equals("wait!")){
 				drawWait();
@@ -48,6 +50,10 @@ public class MultiplayerView {
 		if(world!= null){
 			world.renderAll(gc);
 		}
+                
+//                if(obj instanceof MultiplayerWorld) {
+//                    ((MultiplayerWorld) obj).renderAll(gc);
+//                }
 	}
 	
 	private void drawWait(){

@@ -2,8 +2,10 @@ package entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.canvas.GraphicsContext;
 import resources.Assets;
 import utility.AnimatedImage;
+import utility.AnimatedImageString;
 import utility.Constants;
 import utility.Sprite;
 
@@ -19,7 +21,7 @@ public class Player extends Sprite {
     public int yOrigin;
     public int maxJump;
 
-    private AnimatedImage playerAnimation;
+    private AnimatedImageString playerAnimation;
 
     public Player() {
         super();
@@ -29,12 +31,12 @@ public class Player extends Sprite {
         yOrigin = 200;
         maxJump = 100;
 
-        super.setImage(playerAnimation.getFrame(0));
+        super.setImageName(playerAnimation.getFrame(0));
         super.setPosition(100 + Constants.SHIFT_AMOUNT, yOrigin);
     }
 
     private void createAnimationFrames() {
-        playerAnimation = new AnimatedImage();
+        playerAnimation = new AnimatedImageString();
         playerAnimation.frames = Assets.player_frames;
         playerAnimation.duration = 0.1;
     }
@@ -53,9 +55,15 @@ public class Player extends Sprite {
         super.setVelocity(0, 0);
        // super.addVelocity(Constants.XPLAYER_SPEED, 0);
         super.addVelocity(0, Constants.GRAVITY_SPEED);
-        super.setImage(playerAnimation.getFrame(t));
+        super.setImageName(playerAnimation.getFrame(t));
         handlePlayerLimit();
 //        printFrameDistribution(t);
+    }
+    
+    @Override
+    public void render(GraphicsContext gc) {
+        super.setImage(Assets.imagesMap.get(super.getImageName()));
+        super.render(gc);
     }
     
     public void jump(){

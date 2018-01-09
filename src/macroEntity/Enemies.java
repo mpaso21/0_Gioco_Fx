@@ -5,13 +5,14 @@ import java.util.List;
 
 import entity.Bullet;
 import entity.Enemy;
+import java.io.Serializable;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import utility.Constants;
 import utility.Sprite;
 import utility.Vector2d;
 
-public class Enemies {
+public class Enemies implements Serializable {
 
 	//ogni quanto vengono spannati i nemici
 	private double spawnTime;

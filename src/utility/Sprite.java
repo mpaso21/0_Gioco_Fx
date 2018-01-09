@@ -1,12 +1,14 @@
 package utility;
 
+import java.io.Serializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class Sprite {
-	private Image image;  
+public class Sprite implements Serializable {
+    private String imageName;
+    transient private Image image;  
     private Vector2d position;
     private Vector2d velocity;
     private double width;
@@ -25,6 +27,16 @@ public class Sprite {
         image = i;
         width = i.getWidth();
         height = i.getHeight();
+    }
+    
+    public void setImageName(String s)
+    {
+        imageName = s;
+    }
+
+    public String getImageName()
+    {
+        return imageName;
     }
 
     public void setPosition(double x, double y)

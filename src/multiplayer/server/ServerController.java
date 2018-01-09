@@ -3,17 +3,19 @@ package multiplayer.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import javafx.animation.AnimationTimer;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import multiplayer.MultiplayerWorld;
+import resources.Assets;
 import utility.*;
 
 public class ServerController extends Application {
-
 
     public static void main(String[] args) {
         launch(args);
@@ -21,6 +23,7 @@ public class ServerController extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Assets.load();
         startServer();
     }
 
@@ -28,6 +31,9 @@ public class ServerController extends Application {
         ServerConnectionHandler[] clientList = new ServerConnectionHandler[2];
         
         ExecutorService executor = Executors.newCachedThreadPool();
+        
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(100);
+        
         ServerSocket serverSocket = new ServerSocket(2121);
         System.out.println("Server ready on port 2121");
      
@@ -39,83 +45,25 @@ public class ServerController extends Application {
                         Socket socket = serverSocket.accept();
 
                         clientList[connections.value] = new ServerConnectionHandler(socket, connections);
-
-                        executor.submit(clientList[connections.value]);
-
+                        ScheduledFuture<?> t;
+                        t = scheduler.scheduleAtFixedRate(clientList[connections.value], 0,  16666, TimeUnit.MICROSECONDS);
+                        clientList[connections.value].setScheduledFuture(t);
+//                        executor.submit(clientList[connections.value]);
                         connections.value++;
                     } else {
                       //inizia partita  
-
-                      startGame(clientList);
+                      MultiplayerGame m = new MultiplayerGame(clientList);
+                      ScheduledFuture<?> t;
+                      t = scheduler.scheduleAtFixedRate(m, 0,  16666, TimeUnit.MICROSECONDS);
+                      m.setScheduledFuture(t);
+//                      executor.submit(new MultiplayerGame(clientList));
                       connections.value = 0;
                     }
                 } catch (IOException e) {
                     break;
                 }
         }
-        
         executor.shutdown();
-
+        scheduler.shutdown();
     }
-    
-    private void startGame(ServerConnectionHandler[] clientList) {
-        
-        ServerConnectionHandler p1 = clientList[0];
-        p1.notInGame = false;
-        p1.sendId("1");
-        
-        ServerConnectionHandler p2 = clientList[1];
-        p2.notInGame = false;
-        p2.sendId("2");
-        
-        MultiplayerWorld world = new MultiplayerWorld();
-        MultiplayerModel model = new MultiplayerModel(world);
-
-        final long startNanoTime = System.nanoTime(); //startNanoTime
-
-       AnimationTimer a = new AnimationTimer() {//interfaccia funzionale
-
-            WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());
-            
-            @Override
-            public void handle(long currentNanoTime) {
-            
-                double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
-                lastNanoTime.value = currentNanoTime;
-
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;    
-                
-                model.update(elapsedTime, t);
-                
-                p1.send(world);
-                p2.send(world);
-
-//                p1.send();
-//                p2.send();
-
-//                try {
-////                    if(connections.value<2) {
-////                        Socket socket = serverSocket.accept();
-////                        executor.submit(new ServerConnectionHandler(socket));
-////                        connections.value++;
-////                    } else {
-////                        
-////                        
-////                    }
-////                    
-////                    out.writeObject(new WrapperValue<String>("wait!"));
-////                    out.flush();
-////                    out.reset();
-//
-//                } catch (IOException e) {
-//                    // TODO Auto-generated catch block
-////					e.printStackTrace();
-//                }
-            }
-
-        };
-
-        a.start();
-    }
-
 }

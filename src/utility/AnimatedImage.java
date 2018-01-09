@@ -1,8 +1,9 @@
 package utility;
 
+import java.io.Serializable;
 import javafx.scene.image.Image;
 
-public class AnimatedImage {
+public class AnimatedImage implements Serializable {
     
     public Image[] frames;
     public double duration;//durata singolo frame

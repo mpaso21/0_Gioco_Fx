@@ -2,23 +2,25 @@ package entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.canvas.GraphicsContext;
 
 import resources.Assets;
 import utility.AnimatedImage;
+import utility.AnimatedImageString;
 import utility.Constants;
 import utility.Sprite;
 import utility.Vector2d;
 
 public class Explosion extends Sprite {
 
-    private AnimatedImage a;
+    private AnimatedImageString a;
     private Map<String, Double> times;
 
     public Explosion(Vector2d v) {
-        a = new AnimatedImage();
+        a = new AnimatedImageString();
         a.frames = Assets.explosion_frames;
         a.duration = Constants.EXPLOSION_TIME/Constants.EXPLOSION_FRAME;
-        super.setImage(a.getFrame(0));
+        super.setImageName(a.getFrame(0));
         super.setPosition(v.getX() - super.getBoundary().getWidth() / 2,
                 v.getY() - super.getBoundary().getHeight() / 2);
         times = new HashMap<>();
@@ -32,7 +34,7 @@ public class Explosion extends Sprite {
         setVelocity(0, 0);
         addVelocity(-Constants.EXPLOSIONS_SPEED, 0);
 
-        super.setImage(a.getFrame(times.get("current") - times.get("initTime")));
+        super.setImageName(a.getFrame(times.get("current") - times.get("initTime")));
 
 //        System.out.println("\nInit: " + times.get("initTime"));
 //        System.out.println("Current: " + times.get("current"));
@@ -43,5 +45,11 @@ public class Explosion extends Sprite {
             return true;
         }
         return false;
+    }
+    
+    @Override
+    public void render(GraphicsContext gc) {
+        super.setImage(Assets.imagesMap.get(super.getImageName()));
+        super.render(gc);
     }
 }

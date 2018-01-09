@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import multiplayer.client.MultiplayerController;
+import rmi.client.RMIClientController;
 
 
 public class FXMLMenuController {
@@ -26,7 +27,8 @@ public class FXMLMenuController {
     }
     
     @FXML protected void handleMultiPlayer(ActionEvent event) {
-    	MultiplayerController controller = new MultiplayerController(stage);
+//  	MultiplayerController controller = new MultiplayerController(stage); se uso socket
+        RMIClientController controller = new RMIClientController(stage); //se uso RMI  ogni volta commento 
     	Scene scena = new Scene(controller, 800, 600);
         stage.setScene(scena);
     }
@@ -46,6 +48,6 @@ public class FXMLMenuController {
         
         Scene scena = new Scene(root, 800, 600);
         stage.setScene(scena);
-        stage.show();//Show fatto una volta va beene x sempre 
+        stage.show();//Show fatto una volta va bene x sempre 
     }
 }

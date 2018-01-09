@@ -3,10 +3,11 @@ package macroEntity;
 import java.util.ArrayList;
 import java.util.List;
 import entity.Explosion;
+import java.io.Serializable;
 import javafx.scene.canvas.GraphicsContext;
 import utility.Vector2d;
 
-public class Explosions {
+public class Explosions implements Serializable {
 	private final List<Explosion> explosions;
 	
 	public Explosions(){
