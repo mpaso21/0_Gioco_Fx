@@ -16,7 +16,7 @@ public class WorldView {
     private GraphicsContext gc;
 
     public WorldView(final Group group, final World world) {
-        this.world = world;
+        this.world = world; //group è il game controller: Il nodo padre della nuova scena, quello che vedo principalmente
         init(group);
     }
     //aggiorna
@@ -57,15 +57,15 @@ public class WorldView {
 
     private void init(Group group) {
 
-        group.getChildren().add(world.canvas);
+        group.getChildren().add(world.canvas); //aggiungo canvas al group
 
-        gc = world.canvas.getGraphicsContext2D();
+        gc = world.canvas.getGraphicsContext2D(); //gc è già un oggetto della canvas e permette di disegnare, colore ecc.. di operare sulla canvas
 
 //		gc.setFill(Color.RED);
 //		gc.fillRect(0, 0, 1600, 800);
 //		gc.setFill(Color.BLUE);
 //		gc.fillRect(1300, 200, 100, 100);
-        gc.setFill(Color.BLACK);
+        gc.setFill(Color.BLACK); //setto il colore dei fill (colore scritta, colore rettangolo)
 //		
 //		canvas.setTranslateX(400);
 //		

@@ -20,10 +20,12 @@ public class FXMLMenuController {
     
 	
     @FXML protected void handleSinglePlayer(ActionEvent event) {//background single
-        GameController controller = new GameController(stage);
+        GameController controller = new GameController(stage); //creo un nuovo controller in codice non in fxml
         Scene scena = new Scene(controller, 800, 600);
         controller.initEvents(scena);
-        stage.setScene(scena);
+        stage.setScene(scena);//mi si carica la nuova scena cioè il nuovo group e tutti i suoi nodi
+        //stage menu con fxml a stage ci attacco parent(che era associato a fxml)
+        //stage background single player a stage ci attacco group
     }
     
     @FXML protected void handleMultiPlayer(ActionEvent event) {
@@ -34,12 +36,12 @@ public class FXMLMenuController {
     }
     
     public void init(Stage primaryStage, Parent root) {//menu
-        this.stage = primaryStage;
+        this.stage = primaryStage; //inizializza stage per far sì che non sia null
         
-        Scene scena = new Scene(root, 800, 600);
-        stage.setScene(scena);
-        stage.show();//Show fatto una volta va beene x sempre 
-		
+        Scene scena = new Scene(root, 800, 600); //crei la scena (root contiene le cose definite nel fxml)
+        stage.setScene(scena);//setto la scena
+        stage.show();//Show fatto una volta va bene x sempre  mostra la scena contenuta nella stage
+	//da main con show si apre la pagina del menu	
     }
     
     public void init(Stage primaryStage, Parent root, boolean noConnection) {//menu

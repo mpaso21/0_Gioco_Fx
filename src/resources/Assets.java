@@ -18,7 +18,7 @@ public class Assets {
 
     private static String getResource(String filename) {
         return Assets.class.getResource(filename).toExternalForm();
-    }
+    } //filename sono nello stesso package altrimenti avrei messo un percorso
 
     //carico immagine
     public static void load() {
@@ -41,7 +41,7 @@ public class Assets {
         imagesMap.put("explosion4", new Image(getResource("explosion4.png")));
         imagesMap.put("explosion5", new Image(getResource("explosion5.png")));
         
-        
+        //come prima
 //        background = new Image(getResource("background.png"));
 //        bullet = new Image(getResource("bullet.png"));
 
@@ -63,7 +63,7 @@ public class Assets {
         explosion_frames[3] = "explosion4";
         explosion_frames[4] = "explosion5";
         
-        loadFonts();
+        loadFonts();//CARICO FONTS UTILIZZABILI IN CANVAS O IN CSS
     }
 
     // font loading for usage in css files after the loading.
