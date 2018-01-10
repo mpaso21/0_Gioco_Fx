@@ -20,7 +20,7 @@ public class WorldModel {
 		this.world = world;
                 this.gameOverWait = new HashMap<>();
 	}
-
+        //aggiorno i movimenti, gli input 
 	public void update(double elapsedTime, double t) {
             
             if(world.player.state != Player.State.GAME_OVER) {

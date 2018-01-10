@@ -5,7 +5,9 @@ import java.util.List;
 import entity.Explosion;
 import java.io.Serializable;
 import javafx.scene.canvas.GraphicsContext;
+import utility.Command;
 import utility.Vector2d;
+import utility.commands.DrawImageCommand;
 
 public class Explosions implements Serializable {
 	private final List<Explosion> explosions;
@@ -26,6 +28,16 @@ public class Explosions implements Serializable {
 			e.render(gc);
 		}
 	}
+        
+        public List<Command> renderCommands() {
+            List<Command> com = new ArrayList<>();
+            for(Explosion e: explosions){
+                com.add(new DrawImageCommand(e.getImageName(),
+                        e.getBoundary().getMinX(),
+                        e.getBoundary().getMinY()));
+            }
+            return com;
+        }
 	
 	public void create(List<Vector2d> list) {
 		for(Vector2d v : list) {

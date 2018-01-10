@@ -9,7 +9,9 @@ import entity.Player;
 import java.io.Serializable;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import utility.Command;
 import utility.Vector2d;
+import utility.commands.DrawImageCommand;
 
 
 public class Bullets implements Serializable {
@@ -47,6 +49,16 @@ public class Bullets implements Serializable {
     	for(Bullet b: bullets){
     		b.render(gc);
     	}   	
+    }
+    
+    public List<Command> renderCommands() {
+        List<Command> com = new ArrayList<>();
+        for(Bullet b: bullets){
+            com.add(new DrawImageCommand(b.getImageName(),
+                    b.getBoundary().getMinX(),
+                    b.getBoundary().getMinY()));
+            }
+        return com;
     }
     
     public List<Vector2d> intersects(Enemies enemies) {

@@ -3,7 +3,7 @@ package utility;
 import java.util.Random;
 
 public class Constants {
-	public static final float SHIFT_AMOUNT = 0.0f;
+	public static final float SHIFT_AMOUNT = -500.0f;
 	public static final float ENEMIES_SPAWNTIME = 1.00f;
 	public static final float XPLAYER_ORIGIN = 1600.0f;
 	public static final int JUMP_SPEED = 500;

@@ -12,7 +12,8 @@ public class Assets {
 //    public static Image background;
 //    public static Image bullet;
 
-    public static String[] player_frames;
+    public static String[] player_frames_A;
+    public static String[] player_frames_B;
     public static String[] enemies;    
     public static String[] explosion_frames;
 
@@ -30,6 +31,10 @@ public class Assets {
         imagesMap.put("player_1", new Image(getResource("player_1.png")));
         imagesMap.put("player_2", new Image(getResource("player_2.png")));
         
+        imagesMap.put("player_0b", new Image(getResource("player_0b.png")));
+        imagesMap.put("player_1b", new Image(getResource("player_1b.png")));
+        imagesMap.put("player_2b", new Image(getResource("player_2b.png")));
+        
         imagesMap.put("enemy_b", new Image(getResource("enemy_b.png")));
         imagesMap.put("enemy_p", new Image(getResource("enemy_p.png")));
         imagesMap.put("enemy_g", new Image(getResource("enemy_g.png")));
@@ -45,10 +50,15 @@ public class Assets {
 //        background = new Image(getResource("background.png"));
 //        bullet = new Image(getResource("bullet.png"));
 
-        player_frames = new String[3];
-        player_frames[0] = "player_0";
-        player_frames[1] = "player_1";
-        player_frames[2] = "player_2";
+        player_frames_A = new String[3];
+        player_frames_A[0] = "player_0";
+        player_frames_A[1] = "player_1";
+        player_frames_A[2] = "player_2";
+        
+        player_frames_B = new String[3];
+        player_frames_B[0] = "player_0b";
+        player_frames_B[1] = "player_1b";
+        player_frames_B[2] = "player_2b";
         
         enemies = new String[4];
         enemies[0] = "enemy_b";

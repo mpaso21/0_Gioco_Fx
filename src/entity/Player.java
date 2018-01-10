@@ -4,16 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.canvas.GraphicsContext;
 import resources.Assets;
-import utility.AnimatedImage;
 import utility.AnimatedImageString;
+import utility.Command;
 import utility.Constants;
 import utility.Sprite;
+import utility.commands.DrawImageCommand;
 
 public class Player extends Sprite {
 
     public enum State {
         PLAY,
         GAME_OVER
+    }
+    
+    public enum Type {
+        A, B
     }
 
     public State state = State.PLAY; //stato iniziale
@@ -32,13 +37,38 @@ public class Player extends Sprite {
         maxJump = 100;
 
         super.setImageName(playerAnimation.getFrame(0));
-        super.setPosition(100 + Constants.SHIFT_AMOUNT, yOrigin);
+        super.setImage(Assets.imagesMap.get(super.getImageName()));
+        super.setPosition(100, yOrigin);
+    }
+
+    public Player(Type t) {
+        super();
+
+        createAnimationFrames(t);
+
+        yOrigin = 200;
+        maxJump = 100;
+
+        super.setImageName(playerAnimation.getFrame(0));
+        super.setImage(Assets.imagesMap.get(super.getImageName()));
+        super.setPosition(100, yOrigin);
     }
 
     private void createAnimationFrames() {
         playerAnimation = new AnimatedImageString();
-        playerAnimation.frames = Assets.player_frames;
+        playerAnimation.frames = Assets.player_frames_A;
         playerAnimation.duration = 0.1;
+    }
+
+    private void createAnimationFrames(Type t) {
+        playerAnimation = new AnimatedImageString();
+        playerAnimation.duration = 0.1;
+        
+        if(Type.A==t) {
+            playerAnimation.frames = Assets.player_frames_A;
+        } else if(Type.B==t) {
+            playerAnimation.frames = Assets.player_frames_B;
+        }
     }
     
     private void handlePlayerLimit() {
@@ -64,6 +94,12 @@ public class Player extends Sprite {
     public void render(GraphicsContext gc) {
         super.setImage(Assets.imagesMap.get(super.getImageName()));
         super.render(gc);
+    }
+
+    public Command renderCommand() {
+        return new DrawImageCommand(getImageName(),
+                        getBoundary().getMinX(),
+                        getBoundary().getMinY());
     }
     
     public void jump(){

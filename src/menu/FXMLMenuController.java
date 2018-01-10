@@ -17,8 +17,6 @@ public class FXMLMenuController {
     
     @FXML private Text noConnection;
 
-    
-	
     @FXML protected void handleSinglePlayer(ActionEvent event) {//background single
         GameController controller = new GameController(stage); //creo un nuovo controller in codice non in fxml
         Scene scena = new Scene(controller, 800, 600);
@@ -29,9 +27,10 @@ public class FXMLMenuController {
     }
     
     @FXML protected void handleMultiPlayer(ActionEvent event) {
-//  	MultiplayerController controller = new MultiplayerController(stage); se uso socket
+//  	MultiplayerController controller = new MultiplayerController(stage); //se uso socket
         RMIClientController controller = new RMIClientController(stage); //se uso RMI  ogni volta commento 
     	Scene scena = new Scene(controller, 800, 600);
+        controller.initEvents(scena);
         stage.setScene(scena);
     }
     

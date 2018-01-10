@@ -13,6 +13,7 @@ public class Enemy extends Sprite {
     public Enemy(double y) {
         super();
         super.setImageName(Assets.enemies[Constants.RAND.nextInt(4)]);
+        super.setImage(Assets.imagesMap.get(super.getImageName()));
         final int val = Constants.RAND.nextInt(2);
         super.setPosition((val == 0) ? 1800 : 2500, y);
         myIndex = index++;
@@ -27,7 +28,6 @@ public class Enemy extends Sprite {
 
     @Override
     public void render(GraphicsContext gc) {
-        super.setImage(Assets.imagesMap.get(super.getImageName()));
         super.render(gc);
     }
     

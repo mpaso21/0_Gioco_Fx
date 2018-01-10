@@ -8,9 +8,11 @@ import entity.Enemy;
 import java.io.Serializable;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import utility.Command;
 import utility.Constants;
 import utility.Sprite;
 import utility.Vector2d;
+import utility.commands.DrawImageCommand;
 
 public class Enemies implements Serializable {
 
@@ -52,6 +54,16 @@ public class Enemies implements Serializable {
 			e.render(gc);
 		}
 	}
+        
+        public List<Command> renderCommands() {
+            List<Command> com = new ArrayList<>();
+            for(Enemy e: enemies){
+                com.add(new DrawImageCommand(e.getImageName(),
+                        e.getBoundary().getMinX(),
+                        e.getBoundary().getMinY()));
+            }
+            return com;
+        }
 	
 	public boolean intersects(Sprite p){
 		for(Enemy e: enemies){

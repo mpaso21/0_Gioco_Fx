@@ -21,6 +21,7 @@ public class Explosion extends Sprite {
         a.frames = Assets.explosion_frames;
         a.duration = Constants.EXPLOSION_TIME/Constants.EXPLOSION_FRAME;
         super.setImageName(a.getFrame(0));
+        super.setImage(Assets.imagesMap.get(super.getImageName()));
         super.setPosition(v.getX() - super.getBoundary().getWidth() / 2,
                 v.getY() - super.getBoundary().getHeight() / 2);
         times = new HashMap<>();

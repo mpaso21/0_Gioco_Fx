@@ -1,10 +1,14 @@
 package macroEntity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import resources.Assets;
+import utility.Command;
 import utility.Constants;
 import utility.Sprite;
+import utility.commands.DrawImageCommand;
 
 public class Background implements Serializable {
 	private Sprite[] backgrounds;
@@ -19,6 +23,7 @@ public class Background implements Serializable {
 	private Sprite createSprite(double x){
 		final Sprite s = new Sprite();
 		s.setImageName("background");
+//                s.setImage(Assets.imagesMap.get("background"));
 		s.setPosition(x, 0);
 		return s;
 	} 
@@ -41,4 +46,15 @@ public class Background implements Serializable {
 			backgrounds[i].render(gc);
 		}
 	}
+        
+        public List<Command> renderCommands() {
+            List<Command> com = new ArrayList<>();
+            for(int i =0; i<2; i++){
+                com.add(new DrawImageCommand(backgrounds[i].getImageName(),
+                        backgrounds[i].getBoundary().getMinX(),
+                        backgrounds[i].getBoundary().getMinY()));
+            }
+            return com;
+        }
+       
 }
