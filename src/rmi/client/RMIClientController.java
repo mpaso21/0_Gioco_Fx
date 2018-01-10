@@ -56,7 +56,7 @@ public class RMIClientController extends Group {
             id = game.connection();
 
             controller = (GameControllerInterface) Naming.lookup("rmi://localhost/RMIGameController_" + id[0]);
-
+            
             new AnimationTimer() {
 
                 final long startNanoTime = System.nanoTime(); //startNanoTime
@@ -96,11 +96,11 @@ public class RMIClientController extends Group {
             }.start();
 
         } catch (NotBoundException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
         } catch (MalformedURLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
         } catch (RemoteException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
         }
     }
 

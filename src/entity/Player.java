@@ -51,7 +51,8 @@ public class Player extends Sprite {
 
         super.setImageName(playerAnimation.getFrame(0));
         super.setImage(Assets.imagesMap.get(super.getImageName()));
-        super.setPosition(100, yOrigin);
+        
+        super.setPosition((Type.A == t) ? 100 : 30, yOrigin);
     }
 
     private void createAnimationFrames() {
