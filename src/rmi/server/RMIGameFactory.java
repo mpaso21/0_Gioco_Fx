@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import rmi.RMIGameController;
 
 public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
@@ -47,9 +48,16 @@ public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
         
         games.add(game);
         r.rebind(s, game);
-        executor.submit(game);
+        f = executor.submit(game);
         values[0] = i;
         values[1] = id++;
         return values;
+    }
+    Future<?> f;
+    
+    @Override
+    public void disconnect() throws RemoteException {
+        games.get(0).disconnect();
+        System.out.println(f.isDone());
     }
 }

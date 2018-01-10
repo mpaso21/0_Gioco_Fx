@@ -83,6 +83,11 @@ public class RMIWorld {
         explosions.update(elapsedTime, t);
     }
 
+    public boolean gameIsOver() {
+        return (player1.state == Player.State.GAME_OVER
+                || player2.state == Player.State.GAME_OVER);
+    }
+    
 //    public void updateBackground(double elapsedTime) {
 //        backgrounds.update(elapsedTime);
 //    }
@@ -92,7 +97,7 @@ public class RMIWorld {
         if (player1.state != Player.State.GAME_OVER
                 && player2.state != Player.State.GAME_OVER) {
 
-            if (Constants.MORTAL) {
+            if (Constants.MORTAL_MULTI) {
                 player1.intersectsEnemies(intersectsEnemies());
                 player2.intersectsEnemies(intersectsEnemies());
             }
@@ -106,8 +111,8 @@ public class RMIWorld {
             handleInputP2();
             updateBullets(elapsedTime);
 
-        } else {
-
+        } else {            
+            
         }
 
         updateEnemies(elapsedTime);
@@ -125,6 +130,7 @@ public class RMIWorld {
 //            commands.addAll(backgrounds.renderCommands());
             commands.addAll(explosions.renderCommands());
             commands.addAll(enemies.renderCommands());
+            
             if (player1.state != Player.State.GAME_OVER
                     && player2.state != Player.State.GAME_OVER) {
 
@@ -132,10 +138,7 @@ public class RMIWorld {
                 commands.add(player2.renderCommand());
                 commands.addAll(bulletsP1.renderCommands());
                 commands.addAll(bulletsP2.renderCommands());
-            } else {
-
-            }
-
+            } 
         } else {
             commands.add(new WaitCommand());
         }
@@ -165,29 +168,4 @@ public class RMIWorld {
             inputP2.remove("X");
         }
     }
-//        float font = 25f;
-//
-//    public void renderAll(GraphicsContext gc) {
-//        backgrounds.render(gc);
-//        explosions.render(gc);
-//        enemies.render(gc);
-//        if (player1.state != Player.State.GAME_OVER
-//                && player2.state != Player.State.GAME_OVER) {
-//            player1.render(gc);
-//            player2.render(gc);
-//            bulletsP1.render(gc);
-//            bulletsP2.render(gc);
-//        } else {
-//            gc.setFill(Color.BLACK);
-//            gc.setStroke(Color.WHITE);
-//            gc.setLineWidth(3);
-//            if (font < 110) {
-//                font += 0.3;
-//            }
-//            final Font theFont = Font.font("Bungee", FontWeight.BOLD, font);
-//            gc.setFont(theFont);
-//            gc.fillText("GAME OVER", 80, 300);
-//            gc.strokeText("GAME OVER", 80, 300);
-//        }
-//    }
 }
