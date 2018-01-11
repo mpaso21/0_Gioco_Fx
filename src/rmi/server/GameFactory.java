@@ -5,5 +5,5 @@ import java.rmi.RemoteException;
 
 public interface GameFactory extends Remote {
     int[] connection() throws RemoteException;
-    void disconnect() throws RemoteException;
+    void disconnect(int i) throws RemoteException;
 }

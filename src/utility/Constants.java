@@ -18,5 +18,5 @@ public class Constants {
 	public static final double EXPLOSION_TIME = 0.5;
         public static final int EXPLOSION_FRAME = 5;
         public static boolean MORTAL = false;
-        public static boolean MORTAL_MULTI = false;
+        public static boolean MORTAL_MULTI = true;
 }

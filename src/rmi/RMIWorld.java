@@ -93,7 +93,7 @@ public class RMIWorld {
 //    }
 
     public void update(double elapsedTime, double t) {
-
+        
         if (player1.state != Player.State.GAME_OVER
                 && player2.state != Player.State.GAME_OVER) {
 

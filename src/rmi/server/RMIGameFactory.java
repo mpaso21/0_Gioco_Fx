@@ -3,28 +3,28 @@ package rmi.server;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import rmi.RMIGameController;
 
 public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
     
+    Random rand;
     Registry r;
     ExecutorService executor;
-    List<RMIGameController> games;
+    Map<Integer, RMIGameController> games;
     int i;
     int id;
     
     public RMIGameFactory(Registry r) throws RemoteException { 
-        games = new ArrayList<>();
+        games = new HashMap<>();
         executor = Executors.newCachedThreadPool();
+        rand = new Random();
         this.r = r;
-        this.i = 0;
+        this.i = rand.nextInt();
         this.id = 1;
     }
     
@@ -33,12 +33,18 @@ public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
                 
         int[] values = new int[2];
         
-        for(RMIGameController g : games) {
+        for(RMIGameController g : games.values()) {
             if(g.playerOn<2) {
                 g.playerOn++;
-                values[0] = i++;
+                values[0] = i;
                 values[1] = id;
                 id = 1;
+                
+                do {
+                    i = rand.nextInt();
+                } while(games.get(i)!=null); 
+                
+//                System.out.println(values[0] + " " + i);
                 return values;
             }
         }
@@ -46,18 +52,22 @@ public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
         RMIGameController game = new RMIGameController();
         String s = "RMIGameController_"+i;
         
-        games.add(game);
+        games.put(i, game);
         r.rebind(s, game);
-        f = executor.submit(game);
+        executor.submit(game);
         values[0] = i;
         values[1] = id++;
         return values;
     }
-    Future<?> f;
     
     @Override
-    public void disconnect() throws RemoteException {
-        games.get(0).disconnect();
-        System.out.println(f.isDone());
+    public void disconnect(int i) throws RemoteException {
+        if(games.get(i).disconnect()) {
+            try {
+                r.unbind("RMIGameController_"+i);
+            } catch (Exception ex) {      } 
+            games.remove(i);
+//            System.out.println("rmi.server.RMIGameFactory.disconnect() "+ games.size());
+        }
     }
 }

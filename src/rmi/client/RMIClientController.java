@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +37,7 @@ public class RMIClientController extends Group {
     int id[];
     GameControllerInterface controller;
     private Map<String, Double> gameOverWait;
+    private AnimationTimer at;
 
     public RMIClientController(Stage stage) {
         this.stage = stage;
@@ -56,8 +58,19 @@ public class RMIClientController extends Group {
             id = game.connection();
 
             controller = (GameControllerInterface) Naming.lookup("rmi://localhost/RMIGameController_" + id[0]);
+
+            stage.setOnCloseRequest(e -> {
+                try {
+                    if(controller.gameStarted()) {
+                        at.stop();
+                    }
+                    game.disconnect(id[0]);
+                } catch (RemoteException ex) {
+                    ex.printStackTrace();
+                }
+            });
             
-            new AnimationTimer() {
+            at = new AnimationTimer() {
 
                 final long startNanoTime = System.nanoTime(); //startNanoTime
                 WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());
@@ -76,8 +89,11 @@ public class RMIClientController extends Group {
                             background.update(elapsedTime);
                             background.render(gc);
                         }
-                        for (Command c : controller.render()) {
-                            c.draw(gc);
+                        final List<Command> list = controller.render();
+                        if(list!=null) {
+                            for (Command c : list) {
+                                c.draw(gc);
+                            }
                         }
                         if (controller.gameIsOver()) {
                             renderGameOver(gc);
@@ -85,7 +101,7 @@ public class RMIClientController extends Group {
                             gameOverWait.put("current", t);
                             if (gameOverWait.get("current") - gameOverWait.get("initTime") >= 4) {
                                 loadMenu();
-                                game.disconnect();
+                                game.disconnect(id[0]);
                                 this.stop();
                             }
                         }
@@ -93,19 +109,18 @@ public class RMIClientController extends Group {
 //                        ex.printStackTrace();
                     }
                 }
-            }.start();
+            };
+            
+            at.start();
 
-        } catch (NotBoundException ex) {
-//            ex.printStackTrace();
-        } catch (MalformedURLException ex) {
-//            ex.printStackTrace();
-        } catch (RemoteException ex) {
-//            ex.printStackTrace();
+        } catch (Exception ex) {
+            loadMenu(true);
         }
     }
 
     public void loadMenu() {
         try {
+            stage.setOnCloseRequest(e -> { });
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../menu/Fxml_menu.fxml"));
             Parent root = loader.load();
             FXMLMenuController controller = loader.getController();
@@ -114,6 +129,22 @@ public class RMIClientController extends Group {
             System.err.println("UNABLE TO LOAD MAIN MENU");
             ex.printStackTrace();
         }
+    }
+    
+
+    public void loadMenu(boolean noConnection) {
+        Platform.runLater(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../menu/Fxml_menu.fxml"));
+                Parent root;
+                root = loader.load();
+                FXMLMenuController controller = loader.getController();
+                controller.init(stage, root, noConnection);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     public void initEvents(Scene scena) {

@@ -15,6 +15,7 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
 
     RMIWorld world;
     AnimationTimer at;
+    List<Command> commands = null;
     
     public RMIGameController() throws RemoteException {
         playerOn = 1;
@@ -23,7 +24,7 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
 
     @Override
     public List<Command> render() throws RemoteException {
-        return world.render(playerOn);
+        return this.commands;
     }
 
     @Override
@@ -99,6 +100,8 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
 
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
+                commands = world.render(playerOn);
+
                 if (playerOn == 2) {
                     //inizio l'update...
                     world.update(elapsedTime, t);
@@ -108,7 +111,15 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
         at.start();
     }
     
-    public void disconnect() {
-        at.stop();
+    int disconnected=1;
+    public boolean disconnect() {
+//        System.out.println("rmi.RMIGameController.disconnect()");
+        if(disconnected==2) {
+            at.stop();
+            return true;
+        } else {
+            disconnected++;
+        }
+        return false;
     }
 }
