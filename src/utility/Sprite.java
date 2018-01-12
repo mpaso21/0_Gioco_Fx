@@ -5,10 +5,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
+//serializable per poterla passare sulla rete
 public class Sprite implements Serializable {
     private String imageName;
-    transient private Image image;  
+    transient private Image image;  //transiet image sono ignorati quando avviene la serializzazione
     private Vector2d position;
     private Vector2d velocity;
     private double width;
@@ -27,7 +27,7 @@ public class Sprite implements Serializable {
         image = i;
         width = i.getWidth();
         height = i.getHeight();
-    }
+    }//considero immagine come un rettangolo grazie a width e height posso verificare le collisioni
     
     public void setImageName(String s)
     {
@@ -72,7 +72,7 @@ public class Sprite implements Serializable {
     	velocity.addY(v.getY());
     }
 
-    public void update(double time)
+    public void update(double time)//permtte il movimento in funzione del tempo trascorso
     {
     	position.addX(velocity.getX()*time);
     	position.addY(velocity.getY()*time);
@@ -97,7 +97,7 @@ public class Sprite implements Serializable {
     public boolean intersects(Sprite s)//le due immagini collidono si toccano o sovrappongono
     {
         return s.getBoundary().intersects( this.getBoundary() );
-    }
+    }//true se c'è una collisione in generale tra due sprite
     
     public String toString()
     {

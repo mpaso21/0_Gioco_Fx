@@ -14,9 +14,9 @@ public class Constants {
 	public static final double EXPLOSIONS_SPEED = 200.0;
 	
 	public static final Random RAND = new Random();
-	public static final double PLAYER_MAXY = 300.0;
+	public static final double PLAYER_MAXY = 330.0;
 	public static final double EXPLOSION_TIME = 0.5;
         public static final int EXPLOSION_FRAME = 5;
         public static boolean MORTAL = false;
-        public static boolean MORTAL_MULTI = true;
+        public static boolean MORTAL_MULTI = false;
 }

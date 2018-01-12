@@ -23,7 +23,7 @@ public class Main extends Application {//extends application perchè sono in jav
 	}
 	
 	private void init(Stage primaryStage) throws IOException{ //mi si apre una finestra
-		primaryStage.setTitle("MY FUCKING GAME");
+		primaryStage.setTitle("MY FIRST GAME");
 		primaryStage.setResizable(false);//la finestra non pu� essere ridimensionata
                 
                 //Creo fxml del menu

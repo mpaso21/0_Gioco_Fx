@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
-
+<!--gridpane nodo root a cui posso associare una classe java che funziona da controller-->
 <GridPane fx:controller="menu.FXMLMenuController" 
           xmlns:fx="http://javafx.com/fxml/1" alignment="center"
           gridLinesVisible="FALSE" >
-
+<!--vincoli righe e colonne non nodi figli-->
     <columnConstraints >
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -23,23 +23,28 @@
         <RowConstraints  minHeight="20.0" maxHeight="20.0" vgrow="SOMETIMES" />
     </rowConstraints>
                             
-		  	
+    <!--text primo nodo figlio, metto id così per comodità nei fogli di stile(css)-->		  	
     <Text id="game-text" text="MYFIRSTGAME" GridPane.rowIndex="0"
               GridPane.columnSpan="4" />
 		
-		
+    <!--secondo nodo figlio, definisco il bottone single player a cui associo onAction che--> 
+    <!--devo obbligatoriamente gestire nel controller usando l'annotazione fxml-->		
     <HBox spacing="30" alignment="center"
               GridPane.rowIndex="2">
         <Button minWidth="300" text="SINGLEPLAYER" onAction="#handleSinglePlayer" />
     </HBox>
     
+    <!--terzo nodo figlio, definisco il bottone multi player a cui associo onAction che--> 
+    <!--devo obbligatoriamente gestire nel controller usando l'annotazione fxml-->
     <HBox spacing="30" alignment="center"
               GridPane.rowIndex="4">
         <Button minWidth="300" text="MULTIPLAYER" onAction="#handleMultiPlayer" />
     </HBox>
     
+    <!--quarto nodo figlio, l'id ci permette di aver una sua istanza nel controller oltre che nel css(modificare modifiche grafiche)-->
     <Text fx:id="noConnection" text="Connection problems" visible="false" GridPane.rowIndex="5"/>
 	
+    <!--aggiungo foglio di stile cioè modifico dim carattere, colori, effetti-->
     <stylesheets>
         <URL value="@application.css" />
     </stylesheets>

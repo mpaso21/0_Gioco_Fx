@@ -108,9 +108,10 @@ public class World {
     public void setAnimationTimer(AnimationTimer at) {
         this.at = at;
     }
-    
+    //viene chiamato quando passato i 4 sec del game over
     public void loadMenu() {
         try {
+            //prima faccio il pezzo sotto poi chiamo il platform runlater che mi stoppa l'animazione
             Platform.runLater(() -> {
                 at.stop();
             });

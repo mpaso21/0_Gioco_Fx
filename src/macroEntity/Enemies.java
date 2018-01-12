@@ -81,7 +81,7 @@ public class Enemies implements Serializable {
 		
 		for(Enemy e : enemies) {
 			if(b.intersects(e)) {
-				e.intersectsBullet();
+				//e.intersectsBullet();
 				
 				l.add(new Vector2d(e.getBoundary().getMinX()+ e.getBoundary().getWidth()/2,
 						           e.getBoundary().getMinY()+ e.getBoundary().getHeight()/2));
@@ -106,16 +106,7 @@ public class Enemies implements Serializable {
 		}
 	}
 	
-	private void printEnemiesPositions() {
 
-		for(final Enemy e: enemies){
-			System.out.println("----ENEMY "+e.myIndex+"----");
-			System.out.println("X: " + e.getBoundary().getMinX() + "Y: " + e.getBoundary().getMinY());
-		}
-		System.out.println("DIMENSIONE: "+ enemies.size());
-
-
-	}
 	private void enemiesLimit() {
 
 		final ArrayList<Enemy> remove = new ArrayList<>();

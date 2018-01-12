@@ -5,8 +5,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utility.WrapperValue;
-
-public class GameController extends Group {
+                                             //root di tipo parent che era il genitore della scena del menu
+public class GameController extends Group { //gamecontroller di tipo group è il nuovo genitore della scena che sto creando
 
     private AnimationTimer at;
     private WorldModel model;
@@ -28,14 +28,14 @@ public class GameController extends Group {
 
         at = new AnimationTimer() {//interfaccia funzionale, devo implementare il metodo handle
             //60 volte al secondo chiamo handle
-            WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());
+            WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());//aatributo classe animationTimer
 
             @Override
             public void handle(long currentNanoTime) {
-
+                   //tempo trascorso = tempo attuale - tempo ultima verifica 0,017 circa 1/60
                 double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
                 lastNanoTime.value = currentNanoTime;
-
+                //t = tempo attuale - tempo di inzioi(primA volta che ho chiamaTO start
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
                 model.update(elapsedTime, t);
@@ -51,7 +51,7 @@ public class GameController extends Group {
     public void initEvents(Scene scena) {
         //quando clicco tasto tastiera
         scena.setOnKeyPressed(e -> { //premo tasto
-            String code = e.getCode().toString();
+            String code = e.getCode().toString();//mi viene passato l'evento dal motore di java
             if (!model.input.contains(code)) {
 
                 if (code.equals("X")) {//fa in modo che la x non rimanga premuta, mentre tutti gli altri tasti possono rimanere premuti+
