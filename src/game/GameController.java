@@ -6,7 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utility.WrapperValue;
 
-public class GameController extends Group {
+public class GameController extends Group { //extend Group che è il nodo padre. Nel controller precedente cioè quello associato
+	//al caricamento del menu era GridPane (Parent più generale)
 
     private AnimationTimer at;
     private WorldModel model;
@@ -24,18 +25,19 @@ public class GameController extends Group {
 
     private void start() {//loop gioco
 
-        final long startNanoTime = System.nanoTime(); //startNanoTime
+        final long startNanoTime = System.nanoTime(); //startNanoTime, tempo iniziale
 
         at = new AnimationTimer() {//interfaccia funzionale, devo implementare il metodo handle
             //60 volte al secondo chiamo handle
-            WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());
+            WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());//creo un wrapper un solo elemento long
+            //contenente il tempo attuale
 
             @Override
-            public void handle(long currentNanoTime) {
-
+            public void handle(long currentNanoTime) {//tempo corrente
+            	//tempo trascorso elapsed
                 double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
                 lastNanoTime.value = currentNanoTime;
-
+                			//tempo appena passato- tempo iniziale
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
                 model.update(elapsedTime, t);

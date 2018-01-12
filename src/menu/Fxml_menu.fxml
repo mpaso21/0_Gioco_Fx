@@ -7,10 +7,15 @@
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 
+<!--FXML  è un modo conveniente per definire l'interfaccia utente dell'applicazione, 
+    ma non implementa il comportamento dell'aplicazione-->
+<!-- GridPane è il nodo padre del documento FXML -->
+<!-- Ha diversi attributi, l'attributo fx:controller è richiesto se serve implementare un controller che gestisce gli eventi-->
 <GridPane fx:controller="menu.FXMLMenuController" 
           xmlns:fx="http://javafx.com/fxml/1" alignment="center"
           gridLinesVisible="FALSE" >
-
+          
+<!-- vincoli colonne e righe -->
     <columnConstraints >
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -23,7 +28,9 @@
         <RowConstraints  minHeight="20.0" maxHeight="20.0" vgrow="SOMETIMES" />
     </rowConstraints>
                             
-		  	
+<!-- Text, Hbox, Button sono i nodi figli. Text ha un nome, una posizione, Button ha un nome e una proprietà detta onAction
+alla quale associo handleSinglePlayer e handleMultiPlayer. Nel FXMLMenuController ho due metodi detti handleSinglePlayer e
+handleMultiPlayer i quali implementano l'evento di tastiera.(cosa succede se clicco i due buttom).-->
     <Text id="game-text" text="MYFIRSTGAME" GridPane.rowIndex="0"
               GridPane.columnSpan="4" />
 		
@@ -38,7 +45,9 @@
         <Button minWidth="300" text="MULTIPLAYER" onAction="#handleMultiPlayer" />
     </HBox>
     
+<!--     assegnado un fx:id valore a un elemento, creo una variabile che può essere utilizzato anche nel mio FXMLMenuController -->
     <Text fx:id="noConnection" text="Connection problems" visible="false" GridPane.rowIndex="5"/>
+	
 	
     <stylesheets>
         <URL value="@application.css" />

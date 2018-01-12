@@ -14,7 +14,7 @@ import rmi.client.RMIClientController;
 public class FXMLMenuController {
     
     private Stage stage;
-    
+    //annotation FXML
     @FXML private Text noConnection;
 
     @FXML protected void handleSinglePlayer(ActionEvent event) {//background single
@@ -27,10 +27,10 @@ public class FXMLMenuController {
     }
     
     @FXML protected void handleMultiPlayer(ActionEvent event) {
-//  	MultiplayerController controller = new MultiplayerController(stage); //se uso socket
-        RMIClientController controller = new RMIClientController(stage); //se uso RMI  ogni volta commento 
+  //MultiplayerController controller = new MultiplayerController(stage); //se uso socket
+       RMIClientController controller = new RMIClientController(stage); //se uso RMI  ogni volta commento 
     	Scene scena = new Scene(controller, 800, 600);
-        controller.initEvents(scena);
+       controller.initEvents(scena);
         stage.setScene(scena);
     }
     
