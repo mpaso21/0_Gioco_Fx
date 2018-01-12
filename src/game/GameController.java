@@ -5,8 +5,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utility.WrapperValue;
-                                             //root di tipo parent che era il genitore della scena del menu
-public class GameController extends Group { //gamecontroller di tipo group è il nuovo genitore della scena che sto creando
+                                            // COMMENTO 1
+                                            //root di tipo parent che era il genitore della scena del menu
+                                            //gamecontroller di tipo group è il nuovo genitore della scena che sto creando
+                                            // COMMENTO 2
+public class GameController extends Group { //extend Group che � il nodo padre. Nel controller precedente cio� quello associato
+                                             //al caricamento del menu era GridPane (Parent pi� generale)
 
     private AnimationTimer at;
     private WorldModel model;
@@ -24,11 +28,12 @@ public class GameController extends Group { //gamecontroller di tipo group è il
 
     private void start() {//loop gioco
 
-        final long startNanoTime = System.nanoTime(); //startNanoTime
+        final long startNanoTime = System.nanoTime(); //startNanoTime, tempo iniziale
 
         at = new AnimationTimer() {//interfaccia funzionale, devo implementare il metodo handle
             //60 volte al secondo chiamo handle
-            WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());//aatributo classe animationTimer
+
+            WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());//aatributo classe animationTimer //creo un wrapper un solo elemento long
 
             @Override
             public void handle(long currentNanoTime) {

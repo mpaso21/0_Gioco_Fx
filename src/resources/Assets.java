@@ -8,11 +8,10 @@ import utility.Constants;
 
 public class Assets {
 
-    public static Map<String, Image> imagesMap;
-//    public static Image background;
-//    public static Image bullet;
+    public static Map<String, Image> imagesMap; //Map <String, Image> costituita da coppie di elementi contraddistinti da una
+    //chiave e dal valore a esso associato
 
-    public static String[] player_frames_A;
+    public static String[] player_frames_A;//array di dimensione prefissata del player a 
     public static String[] player_frames_B;
     public static String[] enemies;    
     public static String[] explosion_frames;
@@ -22,12 +21,12 @@ public class Assets {
     } //filename sono nello stesso package altrimenti avrei messo un percorso
 
     //carico immagine
-    public static void load() {
-        imagesMap = new HashMap<>();
-        imagesMap.put("background", new Image(getResource("background.png")));
+    public static void load() { //load metodo statico che mi viene chiamato nel main
+        imagesMap = new HashMap<>();//inizializzo l'HashMap 
+        imagesMap.put("background", new Image(getResource("background.png")));//con il metodo put inserisco i valori nel mio HashMap
         imagesMap.put("bullet", new Image(getResource("bullet.png")));
     
-        imagesMap.put("player_0", new Image(getResource("player_0.png")));
+        imagesMap.put("player_0", new Image(getResource("player_0.png")));//player immagine con animazione. quindi carico 3 immagini diverse
         imagesMap.put("player_1", new Image(getResource("player_1.png")));
         imagesMap.put("player_2", new Image(getResource("player_2.png")));
         
@@ -35,20 +34,17 @@ public class Assets {
         imagesMap.put("player_1b", new Image(getResource("player_1b.png")));
         imagesMap.put("player_2b", new Image(getResource("player_2b.png")));
         
-        imagesMap.put("enemy_b", new Image(getResource("enemy_b.png")));
+        imagesMap.put("enemy_b", new Image(getResource("enemy_b.png")));//enemy immagine senza animazione, 4 nemici di diversi colori
         imagesMap.put("enemy_p", new Image(getResource("enemy_p.png")));
         imagesMap.put("enemy_g", new Image(getResource("enemy_g.png")));
         imagesMap.put("enemy_y", new Image(getResource("enemy_y.png")));
         
-        imagesMap.put("explosion1", new Image(getResource("explosion1.png")));
+        imagesMap.put("explosion1", new Image(getResource("explosion1.png")));//explosion immagine con animazione. quindi carico 5 immagini diverse
         imagesMap.put("explosion2", new Image(getResource("explosion2.png")));
         imagesMap.put("explosion3", new Image(getResource("explosion3.png")));
         imagesMap.put("explosion4", new Image(getResource("explosion4.png")));
         imagesMap.put("explosion5", new Image(getResource("explosion5.png")));
         
-        //come prima
-//        background = new Image(getResource("background.png"));
-//        bullet = new Image(getResource("bullet.png"));
 
         player_frames_A = new String[3];
         player_frames_A[0] = "player_0";
