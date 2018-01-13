@@ -1,6 +1,5 @@
 package macroEntity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,10 +9,13 @@ import utility.Constants;
 import utility.Sprite;
 import utility.commands.DrawImageCommand;
 
-public class Background implements Serializable {
+public class Background {
 	private Sprite[] backgrounds;
 	
-	public Background(){
+	public Background(){//mio background composto da due sprite di lunghezza 1600
+            //la prima posta in posizione 0,0 la seconda 1600, 0. le canvas si sposta a -una certa velocita
+            //quando arrivo a -1600, la sprite viene spostata a 1600,0 cosi ho l'illusione di un backgroudn infinito
+            //io player non mi muovo, e vedo solo i primi 800,il mio background scorre
 		backgrounds = new Sprite[2];
 		for(int i =0; i<2; i++){
 			backgrounds[i]= createSprite(Constants.BACKGROUND_WIDTH*i);
@@ -23,6 +25,7 @@ public class Background implements Serializable {
 	private Sprite createSprite(double x){
 		final Sprite s = new Sprite();
 		s.setImageName("background");
+                s.setImage(Assets.imagesMap.get(s.getImageName()));
 //                s.setImage(Assets.imagesMap.get("background"));
 		s.setPosition(x, 0);
 		return s;
@@ -41,12 +44,10 @@ public class Background implements Serializable {
 	
 	public void render(GraphicsContext gc){
 		for(int i =0; i<2; i++){
-                        backgrounds[i].setImage(
-                                Assets.imagesMap.get(backgrounds[i].getImageName()));
 			backgrounds[i].render(gc);
 		}
 	}
-        
+        //multiplayer
         public List<Command> renderCommands() {
             List<Command> com = new ArrayList<>();
             for(int i =0; i<2; i++){

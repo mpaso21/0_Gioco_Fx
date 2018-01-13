@@ -2,11 +2,9 @@ package macroEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import entity.Bullet;
 import entity.Enemy;
 import java.io.Serializable;
-import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import utility.Command;
 import utility.Constants;
@@ -35,26 +33,13 @@ public class Enemies implements Serializable {
 //		printEnemiesPositions();
 	}
     
-//	public void reset(double playerPosition){
-//		double d;
-//		double pos;
-//		System.out.println("\n");
-//		for(final Enemy e: enemies){
-//			d = e.getBoundary().getMinX() - playerPosition;
-//                        pos = playerPosition-Constants.XPLAYER_ORIGIN+d;
-//                        e.setPosition(pos, e.getBoundary().getMinY());
-//                        
-//                        System.out.println(pos);
-//		}
-//	
-//	}
-	
 	public void render(GraphicsContext gc){
 		for(Enemy e: enemies){
 			e.render(gc);
 		}
 	}
         
+        //multiplayer
         public List<Command> renderCommands() {
             List<Command> com = new ArrayList<>();
             for(Enemy e: enemies){
@@ -64,7 +49,7 @@ public class Enemies implements Serializable {
             }
             return com;
         }
-	
+	//se è false non c'è stata una collisione 
 	public boolean intersects(Sprite p){
 		for(Enemy e: enemies){
 			if(e.intersects(p)) {
@@ -82,7 +67,7 @@ public class Enemies implements Serializable {
 		for(Enemy e : enemies) {
 			if(b.intersects(e)) {
 				//e.intersectsBullet();
-				
+				//posizioni dove si genereranno le esplosioni
 				l.add(new Vector2d(e.getBoundary().getMinX()+ e.getBoundary().getWidth()/2,
 						           e.getBoundary().getMinY()+ e.getBoundary().getHeight()/2));
 				remove.add(e);
@@ -110,7 +95,7 @@ public class Enemies implements Serializable {
 	private void enemiesLimit() {
 
 		final ArrayList<Enemy> remove = new ArrayList<>();
-		
+		//quando il nemico non è più in una posizione attiva per il gioco lo elimino 
 		for(final Enemy e: enemies){
 			if(e.getBoundary().getMaxX()< Constants.SHIFT_AMOUNT){
 				remove.add(e);

@@ -28,7 +28,7 @@ public class Explosions implements Serializable {
 			e.render(gc);
 		}
 	}
-        
+        //multiplayer sul multiplayer non ho il graphicsCOntext perchè non è serializable
         public List<Command> renderCommands() {
             List<Command> com = new ArrayList<>();
             for(Explosion e: explosions){

@@ -2,11 +2,7 @@ package game;
 
 import java.util.List;
 
-import entity.Enemy;
 import entity.Player;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +17,7 @@ import macroEntity.Explosions;
 import menu.FXMLMenuController;
 import utility.Vector2d;
 
+//contiene tutti gli oggetti del gioco
 public class World {
 
     private Stage stage;
@@ -74,7 +71,7 @@ public class World {
     public void renderBullets(GraphicsContext gc) {
         bullets.render(gc);
     }
-
+//list è la lista delle posizioni dove generare esplosioni
     public void intersectsBullets() {
         List<Vector2d> list = bullets.intersects(enemies);
         if (!list.isEmpty()) {
@@ -85,7 +82,7 @@ public class World {
     /////////////////////BULLETS/////////////////////////////////////////////////
 
     /////////////////////////////EXPLOSIONS///////////////////////////////////////
-    public void updateExplosions(double elapsedTime, double t) {
+    public void updateExplosions(double elapsedTime, double t) {//(passo i due t per l'animazione
         explosions.update(elapsedTime, t);
     }
 
@@ -111,7 +108,7 @@ public class World {
     //viene chiamato quando passato i 4 sec del game over
     public void loadMenu() {
         try {
-            //prima faccio il pezzo sotto poi chiamo il platform runlater che mi stoppa l'animazione
+            //prima faccio il pezzo sotto poi chiamo il platform runlater che mi stoppa l'animazione del gioco
             Platform.runLater(() -> {
                 at.stop();
             });

@@ -5,7 +5,6 @@ import java.util.Map;
 import javafx.scene.canvas.GraphicsContext;
 
 import resources.Assets;
-import utility.AnimatedImage;
 import utility.AnimatedImageString;
 import utility.Constants;
 import utility.Sprite;
@@ -16,6 +15,8 @@ public class Explosion extends Sprite {
     private AnimatedImageString a;
     private Map<String, Double> times;
 
+    
+    //v lista di posizioni enemi uccisi
     public Explosion(Vector2d v) {//posizione player
         a = new AnimatedImageString();
         a.frames = Assets.explosion_frames;

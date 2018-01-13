@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.HashMap;
-import java.util.Map;
 import javafx.scene.canvas.GraphicsContext;
 import resources.Assets;
 import utility.AnimatedImageString;
@@ -47,7 +45,7 @@ public class Player extends Sprite {
         super.setPosition((Type.A == t) ? 100 : 30, 200);
     }
 
-    private void createAnimationFrames() { //ANIMATERimagestring perchè cosi posso passare le immagini in string
+    private void createAnimationFrames() { //ANIMATERimagestring perchè cosi posso passare le immagini in string perchè immagini non serializable
         playerAnimation = new AnimatedImageString(); //INIZIALIZZo oggetto dichiarato sopra
         playerAnimation.frames = Assets.player_frames_A;//il mio oggetto ha un array di stringhe detto frames(klo inizializzo con le stringhe caricate nell'Assets)
         playerAnimation.duration = 0.1;//durata di ogni singolo frame
@@ -77,7 +75,7 @@ public class Player extends Sprite {
                     }
 		} //voglio che il mio player sta in un determinato intervallo(in aria)
     }
-
+//UPDATE FA LA LOGICA 
     public void update(double time, double t) {
         super.update(time);//quello che mi fa i movimenti veri e propri
         super.setVelocity(0, 0);//player a velocità costante
@@ -103,17 +101,9 @@ public class Player extends Sprite {
     public void jump(){//0 perchè salto sulla y e non sulla x 
     	super.addVelocity(0, -Constants.JUMP_SPEED);
     }
-    
-    
-//	public boolean maxHeightJump() {
-//		System.out.println("y: " + yOrigin + " x: " + this.getBoundary().getMaxY());
-////		if(yOrigin + this.getBoundary().getMinY() < maxJump) {
-////			return true;
-////		}
-//		return false;
-//	}
 
     //singleplayer
+    //se true c'è staTA Collisione da parte del platyer con il nemico
 	public void intersectsEnemies(boolean intersectsEnemies) {
 		if(intersectsEnemies) {
                     state = State.GAME_OVER;

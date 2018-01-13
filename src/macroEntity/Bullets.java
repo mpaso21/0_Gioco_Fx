@@ -2,12 +2,9 @@ package macroEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import entity.Bullet;
-import entity.Enemy;
 import entity.Player;
 import java.io.Serializable;
-import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import utility.Command;
 import utility.Vector2d;
@@ -36,7 +33,7 @@ public class Bullets implements Serializable {
 
 			b.addVelocity(1000, 0);
 			b.update(elapsedTime);
-
+                        //perchè il bullets non deve andare lontano
 			if (b.getBoundary().getMinX() - p.getBoundary().getMinX() > 300) {
 				remove.add(b);
 			}
@@ -50,7 +47,7 @@ public class Bullets implements Serializable {
     		b.render(gc);
     	}   	
     }
-    
+    //multiplayer
     public List<Command> renderCommands() {
         List<Command> com = new ArrayList<>();
         for(Bullet b: bullets){
@@ -69,7 +66,7 @@ public class Bullets implements Serializable {
     			r.add(b);
     		}
     	}
-    	bullets.removeAll(r);
-    	return removed;
+    	bullets.removeAll(r);//una volta colpito il nemico rimuovo il proiettile in modo tale che non va avanti
+    	return removed;// posizioni nemici colpiti
     }
 }

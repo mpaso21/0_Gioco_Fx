@@ -7,7 +7,7 @@ import utility.Sprite;
 
 public class Enemy extends Sprite {
 
-    public Enemy(double y) {
+    public Enemy(double y) {// y tra 0 e 299 mentre x 1800 0 2500
         super();
         super.setImageName(Assets.enemies[Constants.RAND.nextInt(4)]);//mi da un intero tra 0 e 3 
         super.setImage(Assets.imagesMap.get(super.getImageName()));
@@ -27,8 +27,4 @@ public class Enemy extends Sprite {
     public void render(GraphicsContext gc) {
         super.render(gc);
     }
-    
-    //public void intersectsBullet() {
-//		System.out.println(myIndex + " colpito dal proiettile");
-   // }
 }

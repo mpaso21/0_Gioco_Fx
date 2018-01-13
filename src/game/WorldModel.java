@@ -7,7 +7,8 @@ import java.util.Map;
 import utility.Constants;
 
 import utility.WrapperValue;
-
+//gestisce i movimenti del player, enemy, background, bullets, explosions
+//creazione di bullets, enemies e explosions
 public class WorldModel {
 
         private Map<String, Double> gameOverWait;
@@ -32,6 +33,7 @@ public class WorldModel {
             	}
             	
                 world.intersectsBullets();//che i miei proiettili colpiscano i nemici
+                //verifica che proiettili colpiscono nemici, generazione esplosione, rimozione proeittili e nemici
                 world.player.update(elapsedTime, t);
                 handleInput();		
                 world.updateBullets(elapsedTime); //update per bullet che si muovono               

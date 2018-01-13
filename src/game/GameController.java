@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utility.WrapperValue;
+//gAME CONTROLLER istanzia tutti gli oggetti e crea il loop del gioco
                                             // COMMENTO 1
                                             //root di tipo parent che era il genitore della scena del menu
                                             //gamecontroller di tipo group è il nuovo genitore della scena che sto creando
@@ -26,7 +27,7 @@ public class GameController extends Group { //extend Group che � il nodo padre
         world.setAnimationTimer(at);// la passa dfopo lo start cosi non è null. creo questo per far si che nel world posso chiamare animation.stop
     }
 
-    private void start() {//loop gioco
+    private void start() {//loop gioco thread principale in cui continuo a chiamare handle
 
         final long startNanoTime = System.nanoTime(); //startNanoTime, tempo iniziale
 
@@ -37,12 +38,14 @@ public class GameController extends Group { //extend Group che � il nodo padre
 
             @Override
             public void handle(long currentNanoTime) {
-                   //tempo trascorso = tempo attuale - tempo ultima verifica 0,017 circa 1/60
-                double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
+                   //tempo trascorso dall'ultimachiamata del metodo handle = tempo attuale - tempo ultima verifica 0,017 circa 1/60
+                double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0; //costante è pari a 0.016  ma lo calcolo per evitare che se ci fossero dei lag l'update avvenga in maniera corretta
                 lastNanoTime.value = currentNanoTime;
+                //t tempo trascorso dall'inizio
                 //t = tempo attuale - tempo di inzioi(primA volta che ho chiamaTO start
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
+             
                 model.update(elapsedTime, t);
                 view.update(elapsedTime);//render view
             }

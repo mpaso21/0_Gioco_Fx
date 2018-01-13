@@ -81,12 +81,6 @@ public class Sprite implements Serializable {
     public void render(GraphicsContext gc)
     {
         gc.drawImage( image, position.getX(), position.getY() );
-
-        if(debug) {
-            gc.setStroke( Color.RED );
-        	gc.strokeRect(position.getX(), position.getY(), width, height);
-            gc.setStroke( Color.BLACK );
-        }
     }//disegno immagine nella posizione corretta e con immagine giusta
 
     public Rectangle2D getBoundary()

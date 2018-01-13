@@ -1,14 +1,11 @@
 package game;
 
-import entity.Bullet;
 import entity.Player;
-
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import resources.Assets;
 
 public class WorldView {
 
@@ -25,7 +22,7 @@ public class WorldView {
 
         gc = world.canvas.getGraphicsContext2D(); //gc è già un oggetto della canvas e permette di disegnare, colore ecc.. di operare sulla canvas
 //tramite graphics context disegno sulla canvas
-        gc.setFill(Color.BLACK); //setto il colore dei fill (colore scritta, colore rettangolo)
+    //    gc.setFill(Color.BLACK); //setto il colore dei fill (colore scritta, colore rettangolo)
     }
     //aggiorna
     //pulisco e ridisegno per 60 volte usando le caratteristiche degli oggetti di world
