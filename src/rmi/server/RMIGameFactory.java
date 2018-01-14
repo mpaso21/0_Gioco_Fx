@@ -15,48 +15,46 @@ public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
     Random rand;
     Registry r;
     ExecutorService executor;
-    Map<Integer, RMIGameController> games;
-    int i;
-    int id;
+    Map<Integer, RMIGameController> games;// ad ogni partita(RMIGameController) è associato un id partita.
+    int i;//id partita
     
     public RMIGameFactory(Registry r) throws RemoteException { 
-        games = new HashMap<>();
-        executor = Executors.newCachedThreadPool();
+        games = new HashMap<>();//inizializzo prima per evitare che quando aggiungo l'oggetto sia null
+        executor = Executors.newCachedThreadPool();//executor gestore dei thread. ogni partita gira su un thread separato e ha il suo animation
         rand = new Random();
         this.r = r;
-        this.i = rand.nextInt();
-        this.id = 1;
     }
+    //mi ritorna un array di values: o sono il giocatore 1 oppure il 2 e ritorna l'id della partita
     
     @Override
-    public int[] connection() throws RemoteException {
+    public int[] connection() throws RemoteException {//implemento i metodi dell'interfaccia
                 
-        int[] values = new int[2];
-        
-        for(RMIGameController g : games.values()) {
-            if(g.playerOn<2) {
-                g.playerOn++;
-                values[0] = i;
-                values[1] = id;
-                id = 1;
-                
-                do {
-                    i = rand.nextInt();
-                } while(games.get(i)!=null); 
-                
+        int[] values = new int[2];//1 valore id partita 2 valore id giocatore
+        //RMIGameCOntroller è una singola partita associata a due giocatori
+        for(RMIGameController g : games.values()) {//mi connetto come secondo giocatore quindi prima c'era gà un giocatore in attesa quindi entro nel for
+            if(g.playerOn<2) {//player0n rappresenta i player connessi inzialmente vale 1
+                g.playerOn++;//diventa 2 perchè mi connetto io 
+                values[0] = i; //id partita
+                values[1] = 2; //id giocatore
 //                System.out.println(values[0] + " " + i);
-                return values;
+                return values; //esco dal metodo connection
             }
         }
         
+        //se game.values è vuoto(cioè la prima volta) allora creo la partita
+        //vado qua se non ho trovato nessuna partita in cerca del secondo giocatore
         RMIGameController game = new RMIGameController();
-        String s = "RMIGameController_"+i;
+        do {//verifico che la mia chiave (I) non sia presente in games. se è gia presente la ricalcolo per trovarne una unico
+            i = rand.nextInt(); //evito che ci siano due partite con lo stesso id
+        } while(games.get(i)!=null); 
+                
+        String s = "RMIGameController_"+i; //potrò associate l'oggetto game alla path RMIGameController_i
         
-        games.put(i, game);
-        r.rebind(s, game);
-        executor.submit(game);
-        values[0] = i;
-        values[1] = id++;
+        games.put(i, game);//riempio mappa con id partita associato a partita appena creata
+        r.rebind(s, game);//questo mi permette che il client possa ottenenre l'oggetto game tramite RMI
+        executor.submit(game);//game implementa anche runnable quinid lo butto in submit e parte il run che conterrà l'animation che chiamerà update e render
+        values[0] = i;//id partita
+        values[1] = 1;//io sono il giocatore uno
         return values;
     }
     

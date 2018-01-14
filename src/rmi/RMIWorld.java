@@ -3,7 +3,6 @@ package rmi;
 import entity.Player;
 import java.util.ArrayList;
 import java.util.List;
-import macroEntity.Background;
 import macroEntity.Bullets;
 import macroEntity.Enemies;
 import macroEntity.Explosions;
@@ -83,7 +82,7 @@ public class RMIWorld {
         explosions.update(elapsedTime, t);
     }
 
-    public boolean gameIsOver() {
+    public boolean gameIsOver() {//ritorno true se uno dei due giocatori è nello stato di gameover
         return (player1.state == Player.State.GAME_OVER
                 || player2.state == Player.State.GAME_OVER);
     }

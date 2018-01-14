@@ -61,14 +61,13 @@ public class WorldModel {
 		if (input.contains("X")) {
 
 		    world.createBullet();
-			shoot.value = true;
+			shoot.value = true; //io sparo metto il value a true
 			input.remove("X");
 		}//verifico se input contiene x allora sparo setto il valore di sparato a true e lo rimuovo dall'array
                 //perchè? per fare in modo che se uno tenga premuto il tasto non ci sia una striscia di proiettili
 		
 		if (input.contains("I")){
 			Constants.MORTAL = !Constants.MORTAL;
-			input.remove("I");
 		}
 	}
 }

@@ -26,7 +26,7 @@ public class FXMLMenuController {
         //stage background single player a stage ci attacco group
     }
     
-    @FXML protected void handleMultiPlayer(ActionEvent event) {
+    @FXML protected void handleMultiPlayer(ActionEvent event) {//event è il mio click del mouse
   //MultiplayerController controller = new MultiplayerController(stage); //se uso socket
        RMIClientController controller = new RMIClientController(stage); //se uso RMI  ogni volta commento 
     	Scene scena = new Scene(controller, 800, 600);

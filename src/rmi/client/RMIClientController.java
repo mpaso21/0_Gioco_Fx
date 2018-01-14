@@ -1,14 +1,10 @@
 package rmi.client;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +20,6 @@ import javafx.stage.Stage;
 import macroEntity.Background;
 import menu.FXMLMenuController;
 import rmi.GameControllerInterface;
-import rmi.RMIGameController;
 import rmi.server.GameFactory;
 import utility.Command;
 import utility.WrapperValue;
@@ -50,26 +45,31 @@ public class RMIClientController extends Group {
     }
 
     private void start() {
-
+//start non è il loop del gioco ma il loop di richista dei comandi e gestion input
         try {
+            //io client cerco l'oggetto associato a RMIGameFactory, se lo trova lo restituisce
+           //a questo punto ho un oggetto di tipo gameFactory sul quale posso chiamare connection e disconnect
+           //io chiamo questi metodi ma questi metodi vengoo eseguiti effettivamente sul server(su un'altra JVM)
+           //Io mando al server una richiesta di un metodo(remote invocation)
             GameFactory game
                     = (GameFactory) Naming.lookup("rmi://localhost/RMIGameFactory");
 
             id = game.connection();
-
+            //id[0] id relativo alla partita. mi ritorno l'oggetto game la partita vera e propria sul quale posso
+            //chiamare i metodi dell'interfaccia GameControllerInterface
             controller = (GameControllerInterface) Naming.lookup("rmi://localhost/RMIGameController_" + id[0]);
-
+            //quando clicco x in alto
             stage.setOnCloseRequest(e -> {
                 try {
                     if(controller.gameStarted()) {
                         at.stop();
                     }
-                    game.disconnect(id[0]);
+                    game.disconnect(id[0]);//stoppo animazione e disconetto partita
                 } catch (RemoteException ex) {
                     ex.printStackTrace();
                 }
             });
-            
+            //non è il loop vero del gioco. loop grafico in locale
             at = new AnimationTimer() {
 
                 final long startNanoTime = System.nanoTime(); //startNanoTime
@@ -85,11 +85,13 @@ public class RMIClientController extends Group {
                     gc.clearRect(0, 0, 1600, 800);
                     try {
                         if (controller.gameStarted()) {
-
-                            background.update(elapsedTime);
+                            
+                            background.update(elapsedTime);//background gira in locale perchè non serve averlo sincronizzato cosi evito peso alla serializzazione
                             background.render(gc);
                         }
-                        final List<Command> list = controller.render();
+                        //Command non sono altro che i render dei vari oggetti questo perchè non si poteva creare il render passandogli gc che non è serializable.
+                        //tutto quello che va sulla rete deve essere serializable(trasformato in binario)
+                        final List<Command> list = controller.render(); //mi ritorna una lista di comandi. ogni comandocontiene il metodo draw e quindi avviene il disegno.(dei bullets, explosions, player1, player2, enemy)
                         if(list!=null) {
                             for (Command c : list) {
                                 c.draw(gc);
@@ -101,7 +103,7 @@ public class RMIClientController extends Group {
                             gameOverWait.put("current", t);
                             if (gameOverWait.get("current") - gameOverWait.get("initTime") >= 4) {
                                 loadMenu();
-                                game.disconnect(id[0]);
+                                game.disconnect(id[0]);//disconette la partita
                                 this.stop();
                             }
                         }
@@ -114,11 +116,11 @@ public class RMIClientController extends Group {
             at.start();
 
         } catch (Exception ex) {
-            loadMenu(true);
+            loadMenu(true); //gestisco eccezione per es. problemi di connessione server offline caricando il menù 
         }
     }
 
-    public void loadMenu() {
+    public void loadMenu() {//viene chiamato dove che la scritta game over si ingrandisce
         try {
             stage.setOnCloseRequest(e -> { });
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../menu/Fxml_menu.fxml"));
@@ -132,7 +134,7 @@ public class RMIClientController extends Group {
     }
     
 
-    public void loadMenu(boolean noConnection) {
+    public void loadMenu(boolean noConnection) { //viene chiamato quando si verifica un errore di connessione
         Platform.runLater(() -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../menu/Fxml_menu.fxml"));
@@ -150,7 +152,7 @@ public class RMIClientController extends Group {
     public void initEvents(Scene scena) {
         scena.setOnKeyPressed(e -> {
             String code = e.getCode().toString();
-            try {
+            try { //id composta da due id partita e id giocatore
                 controller.keyPressed(id[1], code);
             } catch (RemoteException ex) {
                 ex.printStackTrace();
