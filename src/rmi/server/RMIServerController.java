@@ -10,7 +10,7 @@ import resources.Assets;
 public class RMIServerController extends Application {
 
     public static void main(String args[]) {
-        Assets.load();
+        Assets.load();//carico assets perchè avere le stringhe delle immagini
         launch(args);
     }
 
