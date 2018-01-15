@@ -32,13 +32,13 @@ public class RMIServerController extends Application {
             RMIGameFactory server = new RMIGameFactory(r);
             r.rebind("RMIGameFactory", server);//associo all'oggetto server il nome RMIGAameFactory
             
-             primaryStage.setTitle("Server");
+            primaryStage.setTitle("Server");
             primaryStage.setResizable(false);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
             Parent root = loader.load();
             FXML_Server_controller controller = loader.getController();//CARICO la classe controller che ho associato nell fxml
             controller.init();
-           Scene scena = new Scene(root, 400, 300); 
+            Scene scena = new Scene(root, 400, 300); 
             primaryStage.setScene(scena);
             primaryStage.show();
             System.out.println("Server on");
@@ -51,7 +51,7 @@ public class RMIServerController extends Application {
                 } catch (NotBoundException ex) {
                     Logger.getLogger(RMIServerController.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
-                    Platform.exit();
+                    Platform.exit();//chiudo l'esecuzione
                     System.exit(0);
                 }
             });

@@ -32,7 +32,7 @@ public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
         int[] values = new int[2];//1 valore id partita 2 valore id giocatore
         //RMIGameCOntroller √® una singola partita associata a due giocatori
         for(RMIGameController g : games.values()) {//mi connetto come secondo giocatore quindi prima c'era g√† un giocatore in attesa quindi entro nel for
-            if(g.playerOn<2) {//player0n rappresenta i player connessi inzialmente vale 1
+            if(g.playerOn<2) {//player0n inzialmente vale 1 perchË c'Ë solo un giocatore 
                 g.playerOn++;//diventa 2 perch√® mi connetto io 
                 values[0] = i; //id partita
                 values[1] = 2; //id giocatore
@@ -58,7 +58,7 @@ public class RMIGameFactory extends UnicastRemoteObject implements GameFactory {
         return values;
     }
     
-    @Override
+    @Override//id partita
     public void disconnect(int i) throws RemoteException {
         if(games.get(i).disconnect()) {
             try {

@@ -1,6 +1,5 @@
 package rmi.server;
 
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
@@ -17,6 +16,7 @@ public class FXML_Server_controller {
     
     public void init() {
         text.setText("Mortal: " + Constants.MORTAL_MULTI);
+        //non ho creato file css, per semplicità ho inserito lo stile già qua
         text.setStyle(Constants.MORTAL_MULTI ? "-fx-fill: green" : "-fx-fill: red");
     }
 }

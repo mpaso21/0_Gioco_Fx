@@ -113,6 +113,7 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
         at.start();
     }
     
+    //metodo disconnect per ogni singola partita
     int disconnected=1;
     public boolean disconnect() {
 //        System.out.println("rmi.RMIGameController.disconnect()");

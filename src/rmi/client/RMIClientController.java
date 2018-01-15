@@ -51,12 +51,13 @@ public class RMIClientController extends Group {
            //a questo punto ho un oggetto di tipo gameFactory sul quale posso chiamare connection e disconnect
            //io chiamo questi metodi ma questi metodi vengoo eseguiti effettivamente sul server(su un'altra JVM)
            //Io mando al server una richiesta di un metodo(remote invocation)
-            GameFactory game
+            GameFactory game //richiesta del gestore delle partite
                     = (GameFactory) Naming.lookup("rmi://localhost/RMIGameFactory");
 
             id = game.connection();
             //id[0] id relativo alla partita. mi ritorno l'oggetto game la partita vera e propria sul quale posso
             //chiamare i metodi dell'interfaccia GameControllerInterface
+            //richiedo al server la mia partita
             controller = (GameControllerInterface) Naming.lookup("rmi://localhost/RMIGameController_" + id[0]);
             //quando clicco x in alto
             stage.setOnCloseRequest(e -> {
@@ -74,12 +75,14 @@ public class RMIClientController extends Group {
 
                 final long startNanoTime = System.nanoTime(); //startNanoTime
                 WrapperValue<Long> lastNanoTime = new WrapperValue<Long>(System.nanoTime());
-                Background background = new Background();
+                Background background = new Background();//l'unica roba che lascio in locale perchè non influisce sul gioco
 
                 @Override
                 public void handle(long currentNanoTime) {
+                	//tempo trascorso ultima chiamata di handle
                     double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
                     lastNanoTime.value = currentNanoTime;
+                    //tempo trascorso da quando l'animazione è stata creata
                     double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
                     gc.clearRect(0, 0, 1600, 800);

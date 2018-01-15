@@ -28,7 +28,7 @@ public class RMIWorld {
     private final Bullets bulletsP1;
     private final Bullets bulletsP2;
     private final Explosions explosions;
-//    private final Background backgrounds;
+
 
     public RMIWorld() {
         player1 = new Player(Player.Type.A);
@@ -36,8 +36,7 @@ public class RMIWorld {
         enemies = new Enemies();
         bulletsP1 = new Bullets(player1);
         bulletsP2 = new Bullets(player2);
-        explosions = new Explosions();
-//        backgrounds = new Background();
+        explosions = new Explosions();;
     }
 
     public void updateEnemies(double elapsedTime) {
@@ -63,16 +62,14 @@ public class RMIWorld {
 
     public void intersectsBulletsP1() {
         List<Vector2d> list = bulletsP1.intersects(enemies);
-        if (!list.isEmpty()) {
-//			System.out.println(list);	
+        if (!list.isEmpty()) {	
             explosions.create(list);
         }
     }
     
     public void intersectsBulletsP2() {
        List<Vector2d> list = bulletsP2.intersects(enemies);
-        if (!list.isEmpty()) {
-//			System.out.println(list);	
+        if (!list.isEmpty()) {	
             explosions.create(list);
         }
     }
@@ -86,10 +83,6 @@ public class RMIWorld {
         return (player1.state == Player.State.GAME_OVER
                 || player2.state == Player.State.GAME_OVER);
     }
-    
-//    public void updateBackground(double elapsedTime) {
-//        backgrounds.update(elapsedTime);
-//    }
 
     public void update(double elapsedTime, double t) {
         
@@ -110,14 +103,8 @@ public class RMIWorld {
             handleInputP2();
             updateBullets(elapsedTime);
 
-        } else {            
-            
-        }
-
+        }//se uno dei due è nello stato di game over e  lo faccio sempre\
         updateEnemies(elapsedTime);
-
-//        updateBackground(elapsedTime);
-
         updateExplosions(elapsedTime, t);
 
     }
@@ -125,14 +112,14 @@ public class RMIWorld {
     public List<Command> render(int playerOn) {
         List<Command> commands = new ArrayList<>();
 
-        if (playerOn == 2) {
-//            commands.addAll(backgrounds.renderCommands());
+        if (playerOn == 2) {//addAll prendo una lista e l'aggiungo ad un'altra lista
+        	//perchè explosion e enemeies e bulllets possono essere più di uno mentre player è uno
             commands.addAll(explosions.renderCommands());
             commands.addAll(enemies.renderCommands());
             
             if (player1.state != Player.State.GAME_OVER
                     && player2.state != Player.State.GAME_OVER) {
-
+            	//render command del player fa un solo comando drawImageCommand
                 commands.add(player1.renderCommand());
                 commands.add(player2.renderCommand());
                 commands.addAll(bulletsP1.renderCommands());

@@ -28,9 +28,9 @@ public class FXMLMenuController {
 
     @FXML protected void handleMultiPlayer(ActionEvent event) {//event è il mio click del mouse
        RMIClientController controller = new RMIClientController(stage); //se uso RMI  ogni volta commento 
-    	Scene scena = new Scene(controller, 800, 600);
+       Scene scena = new Scene(controller, 800, 600);
        controller.initEvents(scena);
-        stage.setScene(scena);
+       stage.setScene(scena);
     }
     
     public void init(Stage primaryStage, Parent root) {//menu
