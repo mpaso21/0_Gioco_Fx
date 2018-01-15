@@ -20,12 +20,13 @@ public class Player extends Sprite {
     }
 
     public State state = State.PLAY; //stato iniziale
-
+    private boolean multiplayer;
+    
     private AnimatedImageString playerAnimation;
 
     public Player() {
         super();
-
+        multiplayer = false;
         createAnimationFrames();
 
         super.setImageName(playerAnimation.getFrame(0));//prendo il nome dell'immagine
@@ -37,7 +38,7 @@ public class Player extends Sprite {
         super();
 
         createAnimationFrames(t);
-
+        multiplayer = true;
 
         super.setImageName(playerAnimation.getFrame(0));
         super.setImage(Assets.imagesMap.get(super.getImageName()));
@@ -68,7 +69,21 @@ public class Player extends Sprite {
 			setPosition(getBoundary().getMinX(), 0);
 		}
 		if (getBoundary().getMinY() > Constants.PLAYER_MAXY) {
+
                     if(Constants.MORTAL) {//se sono mortale (se vado troppo in basso mi schianto e muoio, oltre ai nemici)
+                        state = State.GAME_OVER;
+                    } else {
+			setPosition(getBoundary().getMinX(), Constants.PLAYER_MAXY); //se sono immortale mi blocco nella mia zona limite
+                    }
+		} //voglio che il mio player sta in un determinato intervallo(in aria)
+    }
+     private void handleMultiPlayerLimit() {
+		if (getBoundary().getMinY() < 0) { //non ssupero il bordo superiore
+			setPosition(getBoundary().getMinX(), 0);
+		}
+		if (getBoundary().getMinY() > Constants.PLAYER_MAXY) {
+
+                    if(Constants.MORTAL_MULTI) {//se sono mortale (se vado troppo in basso mi schianto e muoio, oltre ai nemici)
                         state = State.GAME_OVER;
                     } else {
 			setPosition(getBoundary().getMinX(), Constants.PLAYER_MAXY); //se sono immortale mi blocco nella mia zona limite
@@ -82,7 +97,11 @@ public class Player extends Sprite {
        // super.addVelocity(Constants.XPLAYER_SPEED, 0);
         super.addVelocity(0, Constants.GRAVITY_SPEED);//aggiiungo gravità al player(se clicco z salta e poi va giu per gravità)
         super.setImageName(playerAnimation.getFrame(t)); //mi da il nome dell'immagine relativa al tempo trascorso. questo per avere l'immagine giusta al tempo giusto
-        handlePlayerLimit();
+        if(multiplayer) {
+            handleMultiPlayerLimit();
+        } else {
+            handlePlayerLimit();
+        }
 //        printFrameDistribution(t);
     }
     

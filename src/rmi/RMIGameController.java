@@ -2,13 +2,11 @@ package rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
 import utility.Command;
-import utility.Constants;
 import utility.WrapperValue;
-
+//classe della partita vera e propria
 public class RMIGameController extends UnicastRemoteObject implements GameControllerInterface, Runnable {
 
     public int playerOn;
@@ -18,7 +16,7 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
     List<Command> commands = null;
     
     public RMIGameController() throws RemoteException {
-        playerOn = 1;
+        playerOn = 1;//player on rappresenta i numeri di giocatori
         world = new RMIWorld();
     }
 
@@ -29,7 +27,7 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
 
     @Override
     public boolean gameStarted() throws RemoteException {
-        return playerOn == 2;
+        return playerOn == 2; //true se i giocatori connessi sono due
     }
 
     @Override
@@ -37,7 +35,7 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
         return world.gameIsOver();
     }
 
-    @Override
+    @Override//id riferito al giocatore
     public void keyPressed(int id, String code) {
         if (id == 1) {
             if (!world.inputP1.contains(code)) {
@@ -87,7 +85,8 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
         }
     }
 
-    @Override
+    @Override //vien chiaamtao dall'executor su un thread a parte. ogni partita sta su un thread separato
+    //run rappresenta il loop del gioco 
     public void run() {
         at = new AnimationTimer() {
             final long startNanoTime = System.nanoTime(); //startNanoTime
@@ -100,7 +99,10 @@ public class RMIGameController extends UnicastRemoteObject implements GameContro
 
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
-                commands = world.render(playerOn);
+                //se playeron = 1 mi ritorna il comando wait (aspetta giocatore 2)
+                //se playeron = 2 mi ritorna la lista di comandi per disegnare gli oggetti
+                commands = world.render(playerOn); 
+
 
                 if (playerOn == 2) {
                     //inizio l'update...

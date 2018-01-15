@@ -60,11 +60,11 @@ public class GameController extends Group { //extend Group che � il nodo padre
         //quando clicco tasto tastiera
         scena.setOnKeyPressed(e -> { //premo tasto
             String code = e.getCode().toString();//mi viene passato l'evento dal motore di java
-            if (!model.input.contains(code)) {
+            if (!model.input.contains(code)) {//se non  è nella lista dei tasti premuti
 
                 if (code.equals("X")) {//fa in modo che la x non rimanga premuta, mentre tutti gli altri tasti possono rimanere premuti+
                     //sparo un bullets alla volta non a raffica mentre il jump clicco e continuo ad andare in alto fino a quando tocco il bordo
-                    if (!model.shoot.value) {
+                    if (!model.shoot.value) {//se il valoer di shoot è falso posso sparare e lo aggiungo alla lista degli input
                         model.input.add(code);
                     }
                 } else {
@@ -75,14 +75,10 @@ public class GameController extends Group { //extend Group che � il nodo padre
 
         scena.setOnKeyReleased(e -> { //rilascio tasto
             String code = e.getCode().toString();
-            if (code.equals("X")) {
+            if (code.equals("X")) {//se è x e ho mollato il testo metto shoot a falso
                 model.shoot.value = false;
-                model.input.remove(code);
-
-            } else {
-                model.input.remove(code);
-
-            }
+            } 
+            model.input.remove(code);
 
         });
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+
+<GridPane fx:controller="rmi.server.FXML_Server_controller" 
+          xmlns:fx="http://javafx.com/fxml/1" alignment="center"
+          gridLinesVisible="false" >
+          
+    <columnConstraints >
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints  valignment="CENTER" minHeight="70.0" maxHeight="70.0" vgrow="SOMETIMES" />
+        <RowConstraints  valignment="CENTER" minHeight="200.0" maxHeight="200.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+
+    <Text fx:id="text" text="" GridPane.rowIndex="0" visible="true"/>
+    <HBox spacing="30" alignment="center"
+              GridPane.rowIndex="1">
+        <Button minWidth="300" minHeight="200" text="Mortal" onAction="#handleMortal" />
+    </HBox>
+</GridPane>
+
